@@ -23,105 +23,153 @@ $result = mysqli_query($con, $query);
     <?php include("includes/navbar.php"); ?>
 
 
-    <!-- Premium Hero -->
-    <section class="relative bg-slate-900 py-28 mb-10 overflow-hidden">
-      <!-- Decorative background blur -->
-      <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
-      <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-slate-900 to-transparent"></div>
-      <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-50 to-transparent"></div>
+    <!-- Modern Premium Hero -->
+    <section class="relative bg-slate-900 pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+      <!-- Animated Background Elements -->
+      <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
+      <div class="absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-slate-900 to-transparent z-10"></div>
+      <div class="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-slate-900 to-transparent z-10"></div>
       
-      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center z-10">
-        <div class="text-center">
-          <span class="inline-block py-1 px-3 rounded-full bg-brand-500/20 text-brand-100 text-sm font-semibold mb-6 border border-brand-500/30 backdrop-blur-md">🚀 Elevate Your Future</span>
-          <h1 class="text-5xl font-extrabold text-white tracking-tight sm:text-6xl md:text-7xl mb-6">
-            Start a <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">Tech Career</span>
+      <!-- Glowing Orbs -->
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-600/20 rounded-full blur-[128px] mix-blend-screen animate-pulse pointer-events-none"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-600/20 rounded-full blur-[128px] mix-blend-screen pointer-events-none" style="animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite 2s;"></div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-20">
+        <div class="text-center max-w-4xl mx-auto">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 transform transition hover:scale-105 cursor-default">
+            <span class="flex h-2 w-2 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+            </span>
+            <span class="text-xs font-semibold uppercase tracking-wider text-slate-300">New premium platform live</span>
+          </div>
+          
+          <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-8 leading-tight">
+            Accelerate your <br class="hidden md:block" />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-violet-400 to-brand-400 animate-gradient-x">tech career</span>
           </h1>
-          <p class="mt-4 text-xl text-slate-300 max-w-2xl mx-auto">
-            Discover opportunities that match your passion. Join the top companies innovating the future of software, design, and engineering.
+          
+          <p class="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Discover elite opportunities. Join the world's most innovative companies building the future of software, design, and engineering.
           </p>
-          <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-            <a href="jobs.php" class="px-8 py-4 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold transition-all shadow-lg shadow-brand-500/30 hover:-translate-y-1">Find Jobs</a>
-            <a href="register.php" class="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold transition-all hover:-translate-y-1">Create Account</a>
+          
+          <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <a href="jobs.php" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-bold transition-all shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] transform hover:-translate-y-1">
+              Explore Active Roles
+            </a>
+            <a href="register.php" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-bold backdrop-blur-md border border-white/10 transition-all hover:-translate-y-1">
+              Join the Network
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Employers -->
-    <section class="py-4">
-      <div class="container-xl lg:container m-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-lg">
-          <div class="bg-gray-100 p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold">For Job Seekers</h2>
-            <p class="mt-2 mb-4">
-              Browse our jobs and start your career today
-            </p>
-            <a
-              href="jobs.php"
-              class="inline-block bg-black text-white rounded-lg px-4 py-2 hover:bg-gray-700"
-            >
-              Browse Jobs
-            </a>
+    <!-- Bento Grid Section -->
+    <section class="py-20 bg-slate-900 border-t border-white/5">
+      <div class="container m-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          
+          <!-- Job Seekers Bento Card -->
+          <div class="relative group rounded-3xl bg-slate-800/50 border border-slate-700/50 p-8 lg:p-12 overflow-hidden transition-all duration-300 hover:border-brand-500/50 hover:bg-slate-800">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-brand-500/10 rounded-full blur-3xl transform group-hover:scale-150 transition-transform duration-700"></div>
+            <div class="relative z-10 flex flex-col h-full">
+              <div class="w-14 h-14 rounded-2xl bg-brand-500/20 flex items-center justify-center border border-brand-500/30 mb-8 text-brand-400 text-2xl group-hover:scale-110 group-hover:rotate-3 transition-transform">
+                <i class="fa-solid fa-user-astronaut"></i>
+              </div>
+              <h2 class="text-3xl font-bold text-white mb-4">For Pioneers</h2>
+              <p class="text-slate-400 text-lg mb-8 flex-grow leading-relaxed">
+                Connect directly with hiring managers. Build an elite profile and land the role you deserve.
+              </p>
+              <a href="jobs.php" class="inline-flex items-center text-brand-400 font-bold hover:text-brand-300 transition-colors group/link w-fit">
+                Start browsing roles
+                <i class="fa-solid fa-arrow-right ml-2 transform group-hover/link:translate-x-1 transition-transform"></i>
+              </a>
+            </div>
           </div>
-          <div class="bg-indigo-100 p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold">For Employers</h2>
-            <p class="mt-2 mb-4">
-              List your job to find the perfect employees for the role
-            </p>
-            <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') : ?>
-            <a
-              href="add-job.php"
-              class="inline-block bg-indigo-500 text-white rounded-lg px-4 py-2 hover:bg-indigo-600"
-            >
-              Add Job
-            </a>
-            <?php endif; ?>
+
+          <!-- Employers Bento Card -->
+          <div class="relative group rounded-3xl bg-slate-800/50 border border-slate-700/50 p-8 lg:p-12 overflow-hidden transition-all duration-300 hover:border-violet-500/50 hover:bg-slate-800">
+            <div class="absolute bottom-0 left-0 w-32 h-32 bg-violet-500/10 rounded-full blur-3xl transform group-hover:scale-150 transition-transform duration-700"></div>
+            <div class="relative z-10 flex flex-col h-full">
+              <div class="w-14 h-14 rounded-2xl bg-violet-500/20 flex items-center justify-center border border-violet-500/30 mb-8 text-violet-400 text-2xl group-hover:scale-110 group-hover:-rotate-3 transition-transform">
+                <i class="fa-solid fa-building"></i>
+              </div>
+              <h2 class="text-3xl font-bold text-white mb-4">For Visionaries</h2>
+              <p class="text-slate-400 text-lg mb-8 flex-grow leading-relaxed">
+                Source world-class talent. Post your open roles and build the team that will build the future.
+              </p>
+              <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') : ?>
+              <a href="add-job.php" class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-bold transition-all shadow-lg hover:-translate-y-1 w-fit">
+                <i class="fa-solid fa-plus mr-2"></i> Post a Job
+              </a>
+              <?php else: ?>
+              <span class="inline-flex items-center text-slate-500 font-medium text-sm border border-slate-700/50 bg-slate-900/50 px-4 py-2 rounded-lg">
+                <i class="fa-solid fa-lock mr-2 text-xs"></i> Admin Access Required
+              </span>
+              <?php endif; ?>
+            </div>
           </div>
+          
         </div>
       </div>
     </section>
 
-    <!-- Browse Jobs -->
-    <section class="bg-blue-50 px-4 py-10">
-      <div class="container-xl lg:container m-auto">
-        <h2 class="text-3xl font-bold text-indigo-500 mb-6 text-center">
-          Browse Jobs
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Featured Roles Section -->
+    <section class="bg-slate-900 border-t border-white/5 py-24 relative overflow-hidden">
+      <!-- Glow Accent -->
+      <div class="absolute top-0 right-0 w-1/2 h-1/2 bg-brand-900/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+      <div class="container m-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+          <div>
+            <span class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-2 block">Latest Opportunities</span>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Active Roles</h2>
+          </div>
+          <a href="jobs.php" class="group flex items-center text-slate-300 hover:text-white transition-colors font-medium">
+            View the full board
+            <div class="ml-3 w-8 h-8 rounded-full border border-slate-600 group-hover:border-white group-hover:bg-white flex items-center justify-center transition-all">
+              <i class="fa-solid fa-arrow-right text-xs text-slate-400 group-hover:text-slate-900 transition-colors"></i>
+            </div>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <?php
-          // Check if there are any jobs
           if (mysqli_num_rows($result) > 0) {
-              // Loop through each job and display it
               while ($job = mysqli_fetch_assoc($result)) {
                   echo '
-                  <div class="group bg-white rounded-2xl shadow-sm hover:shadow-2xl border border-slate-100 transition-all duration-300 hover:-translate-y-2 overflow-hidden flex flex-col">
-                    <div class="p-6 flex-1">
-                      <div class="mb-4 flex justify-between items-start">
-                        <span class="inline-block bg-brand-50 text-brand-600 text-xs font-bold px-3 py-1 rounded-full">' . htmlspecialchars($job['type']) . '</span>
-                        <span class="text-slate-400 text-xs font-semibold uppercase tracking-wider">New</span>
+                  <div class="group relative bg-[#151c2c] rounded-3xl border border-slate-700/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] hover:border-brand-500/30 overflow-hidden flex flex-col">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div class="p-8 flex-1 relative z-10">
+                      <div class="mb-6 flex justify-between items-start">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-bold uppercase tracking-wider">' . htmlspecialchars($job['type']) . '</span>
+                        <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" title="Actively Hiring"></div>
                       </div>
-                      <h3 class="text-2xl font-bold text-slate-900 mb-2 group-hover:text-brand-600 transition-colors">' . htmlspecialchars($job['title']) . '</h3>
-                      <div class="text-slate-500 mb-6 leading-relaxed">';
-                        $description = htmlspecialchars($job['description']);
-                        if (strlen($description) > 90) {
-                            echo substr($description, 0, 90) . '...';
-                        } else {
-                            echo $description;
-                        }
+                      
+                      <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-brand-300 transition-colors leading-tight line-clamp-2">' . htmlspecialchars($job['title']) . '</h3>
+                      
+                      <p class="text-slate-400 mb-8 leading-relaxed line-clamp-3 text-sm">';
+                        echo htmlspecialchars($job['description']);
                         echo '
-                      </div>
-                      <div class="flex items-center text-slate-800 font-bold mb-2">
-                        <i class="fa-solid fa-money-bill-wave text-brand-500 mr-2"></i>' . htmlspecialchars($job['salary']) . '
+                      </p>
+                      
+                      <div class="flex flex-wrap items-center gap-4 text-sm font-semibold">
+                        <div class="flex items-center text-emerald-400 bg-emerald-400/10 px-3 py-1.5 rounded-lg border border-emerald-400/20">
+                          <i class="fa-solid fa-money-bill-wave mr-2"></i>' . htmlspecialchars($job['salary']) . '
+                        </div>
                       </div>
                     </div>
-                    <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4">
-                      <div class="text-slate-600 text-sm font-medium flex items-center">
-                        <i class="fa-solid fa-location-dot text-slate-400 mr-2 text-lg"></i>
-                        ' . htmlspecialchars($job['location']) . '
+                    
+                    <div class="px-8 py-5 bg-slate-800/30 border-t border-slate-700/50 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-10 group-hover:bg-slate-800/50 transition-colors">
+                      <div class="text-slate-400 text-sm font-medium flex items-center">
+                        <i class="fa-solid fa-location-dot mr-2 text-slate-500 group-hover:text-brand-400 transition-colors"></i>
+                        <span class="truncate max-w-[150px]">' . htmlspecialchars($job['location']) . '</span>
                       </div>
                       <a
                         href="job-details.php?id=' . $job['id'] . '"
-                        class="w-full sm:w-auto bg-slate-900 hover:bg-brand-600 text-white px-6 py-2.5 rounded-xl text-center text-sm font-semibold transition-colors shadow-md"
+                        class="w-full sm:w-auto bg-white/5 hover:bg-brand-600 text-white px-5 py-2.5 rounded-xl border border-white/10 hover:border-brand-500 text-center text-sm font-bold transition-all shadow-sm group-hover:shadow-[0_0_15px_rgba(124,58,237,0.3)]"
                       >
                         Review Role
                       </a>
@@ -129,19 +177,14 @@ $result = mysqli_query($con, $query);
                   </div>';
               }
           } else {
-              echo '<p class="text-center text-gray-600">No jobs found.</p>';
+              echo '<div class="col-span-full py-12 text-center bg-slate-800/30 rounded-3xl border border-slate-700/50 border-dashed">
+                      <i class="fa-solid fa-ghost text-4xl text-slate-600 mb-4 block"></i>
+                      <p class="text-slate-400 font-medium">No premium roles available right now.</p>
+                    </div>';
           }
           ?>
         </div>
       </div>
-    </section>
-
-    <section class="m-auto max-w-lg my-10 px-6">
-      <a
-        href="jobs.php"
-        class="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
-        >View All Jobs</a
-      >
     </section>
 
     <script src="js/main.js"></script>

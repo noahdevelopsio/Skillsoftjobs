@@ -50,167 +50,186 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <body>
     <?php include("includes/navbar.php"); ?>
 
-    <section class="bg-indigo-50">
-      <div class="container m-auto max-w-2xl py-24">
-        <div
-          class="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0"
-        >
-          <form method="POST" action="">
-            <h2 class="text-3xl text-center font-semibold mb-6">Add Job</h2>
+    <section class="min-h-[calc(100vh-80px)] relative flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 overflow-hidden bg-slate-900">
+      <!-- Animated Mesh/Glow Background -->
+      <div class="absolute inset-0 w-full h-full bg-slate-900 z-0"></div>
+      <div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-violet-600/20 blur-[120px] mix-blend-screen animate-pulse z-0"></div>
+      <div class="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-brand-600/20 blur-[120px] mix-blend-screen z-0" style="animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite 2s;"></div>
+      
+      <!-- Glassmorphic Card -->
+      <div class="relative w-full max-w-4xl z-10 my-8">
+        <div class="backdrop-blur-xl bg-white/5 border border-white/10 p-8 md:p-12 rounded-3xl shadow-2xl relative overflow-hidden">
+          
+          <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50 pointer-events-none"></div>
 
-            <div class="mb-4">
-              <label for="type" class="block text-gray-700 font-bold mb-2"
-                >Job Type</label
-              >
-              <select
-                id="type"
-                name="type"
-                class="border rounded w-full py-2 px-3"
-                required
-              >
-                <option value="Full-Time">Full-Time</option>
-                <option value="Part-Time">Part-Time</option>
-                <option value="Remote">Remote</option>
-                <option value="Internship">Internship</option>
-              </select>
-            </div>
+          <div class="text-center mb-10 relative z-10">
+            <h2 class="text-4xl font-extrabold text-white tracking-tight mb-2">Post a Position</h2>
+            <p class="text-slate-400 font-medium">Find elite talent for your team.</p>
+          </div>
 
-            <div class="mb-4">
-              <label class="block text-gray-700 font-bold mb-2"
-                >Job Listing Name</label
-              >
-              <input
-                type="text"
-                id="title"
-                name="title"
-                class="border rounded w-full py-2 px-3 mb-2"
-                placeholder="eg. Beautiful Apartment In Miami"
-                required
-              />
-            </div>
-            <div class="mb-4">
-              <label
-                for="description"
-                class="block text-gray-700 font-bold mb-2"
-                >Description</label
-              >
-              <textarea
-                id="description"
-                name="description"
-                class="border rounded w-full py-2 px-3"
-                rows="4"
-                placeholder="Add any job duties, expectations, requirements, etc"
-                required
-              ></textarea>
-            </div>
+          <div class="relative z-10">
+            <form method="POST" action="" class="space-y-8">
+              
+              <!-- Role Details Section -->
+              <div class="space-y-6">
+                <h3 class="text-xl font-bold text-white border-b border-slate-700/50 pb-2 mb-4">Role Details</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <!-- Job Listing Name -->
+                  <div class="group md:col-span-2">
+                    <label for="title" class="block text-sm font-semibold text-slate-300 mb-2 transition-colors group-focus-within:text-brand-400">Job Title</label>
+                    <input
+                      type="text"
+                      id="title"
+                      name="title"
+                      class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
+                      placeholder="e.g. Senior Frontend Engineer"
+                      required
+                    />
+                  </div>
 
-            <div class="mb-4">
-              <label for="type" class="block text-gray-700 font-bold mb-2"
-                >Salary</label
-              >
-              <select
-                id="salary"
-                name="salary"
-                class="border rounded w-full py-2 px-3"
-                required
-              >
-                <option value="Under $50K">Under $50K</option>
-                <option value="$50K - 60K">$50K - $60K</option>
-                <option value="$60K - 70K">$60K - $70K</option>
-                <option value="$70K - 80K">$70K - $80K</option>
-                <option value="$80K - 90K">$80K - $90K</option>
-                <option value="$90K - 100K">$90K - $100K</option>
-                <option value="$100K - 125K">$100K - $125K</option>
-                <option value="$125K - 150K">$125K - $150K</option>
-                <option value="$150K - 175K">$150K - $175K</option>
-                <option value="$175K - 200K">$175K - $200K</option>
-                <option value="Over $200K">Over $200K</option>
-              </select>
-            </div>
+                  <!-- Job Type -->
+                  <div class="group">
+                    <label for="type" class="block text-sm font-semibold text-slate-300 mb-2 transition-colors group-focus-within:text-brand-400">Job Type</label>
+                    <div class="relative">
+                        <select
+                          id="type"
+                          name="type"
+                          class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
+                          required
+                        >
+                          <option value="Full-Time" class="bg-slate-800">Full-Time</option>
+                          <option value="Part-Time" class="bg-slate-800">Part-Time</option>
+                          <option value="Remote" class="bg-slate-800">Remote</option>
+                          <option value="Internship" class="bg-slate-800">Internship</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+                    </div>
+                  </div>
 
-            <div class='mb-4'>
-              <label class='block text-gray-700 font-bold mb-2'>
-                Location
-              </label>
-              <input
-                type='text'
-                id='location'
-                name='location'
-                class='border rounded w-full py-2 px-3 mb-2'
-                placeholder='Company Location'
-                required           
-              />
-            </div>
+                  <!-- Salary -->
+                  <div class="group">
+                    <label for="salary" class="block text-sm font-semibold text-slate-300 mb-2 transition-colors group-focus-within:text-brand-400">Salary Range</label>
+                    <div class="relative">
+                        <select
+                          id="salary"
+                          name="salary"
+                          class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
+                          required
+                        >
+                          <option value="Under $50K" class="bg-slate-800">Under $50K</option>
+                          <option value="$50K - 60K" class="bg-slate-800">$50K - $60K</option>
+                          <option value="$60K - 70K" class="bg-slate-800">$60K - $70K</option>
+                          <option value="$70K - 80K" class="bg-slate-800">$70K - $80K</option>
+                          <option value="$80K - 90K" class="bg-slate-800">$80K - $90K</option>
+                          <option value="$90K - 100K" class="bg-slate-800">$90K - $100K</option>
+                          <option value="$100K - 125K" class="bg-slate-800">$100K - $125K</option>
+                          <option value="$125K - 150K" class="bg-slate-800">$125K - $150K</option>
+                          <option value="$150K - 175K" class="bg-slate-800">$150K - $175K</option>
+                          <option value="$175K - 200K" class="bg-slate-800">$175K - $200K</option>
+                          <option value="Over $200K" class="bg-slate-800">Over $200K</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+                    </div>
+                  </div>
 
-            <h3 class="text-2xl mb-5">Company Info</h3>
+                  <!-- Location -->
+                  <div class="group md:col-span-2">
+                    <label for="location" class="block text-sm font-semibold text-slate-300 mb-2 transition-colors group-focus-within:text-brand-400">Location</label>
+                    <input
+                      type="text"
+                      id="location"
+                      name="location"
+                      class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
+                      placeholder="e.g. San Francisco, CA (or Remote)"
+                      required
+                    />
+                  </div>
 
-            <div class="mb-4">
-              <label for="company" class="block text-gray-700 font-bold mb-2"
-                >Company Name</label
-              >
-              <input
-                type="text"
-                id="company"
-                name="company"
-                class="border rounded w-full py-2 px-3"
-                placeholder="Company Name"
-              />
-            </div>
+                  <!-- Description -->
+                  <div class="group md:col-span-2">
+                    <label for="description" class="block text-sm font-semibold text-slate-300 mb-2 transition-colors group-focus-within:text-brand-400">Description</label>
+                    <textarea
+                      id="description"
+                      name="description"
+                      class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300 resize-y"
+                      rows="6"
+                      placeholder="Detail the responsibilities, requirements, and benefits..."
+                      required
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
 
-            <div class="mb-4">
-              <label
-                for="company_description"
-                class="block text-gray-700 font-bold mb-2"
-                >Company Description</label
-              >
-              <textarea
-                id="company_description"
-                name="company_description"
-                class="border rounded w-full py-2 px-3"
-                rows="4"
-                placeholder="What does your company do?"
-              ></textarea>
-            </div>
+              <!-- Company Info Section -->
+              <div class="space-y-6 pt-6 mt-6 border-t border-slate-700/50">
+                <h3 class="text-xl font-bold text-white border-b border-slate-700/50 pb-2 mb-4">Company Details</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <!-- Company Name -->
+                  <div class="group md:col-span-2">
+                    <label for="company" class="block text-sm font-semibold text-slate-300 mb-2 transition-colors group-focus-within:text-brand-400">Company Name</label>
+                    <input
+                      type="text"
+                      id="company"
+                      name="company"
+                      class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
+                      placeholder="e.g. Acme Corp"
+                      required
+                    />
+                  </div>
 
-            <div class="mb-4">
-              <label
-                for="contact_email"
-                class="block text-gray-700 font-bold mb-2"
-                >Contact Email</label
-              >
-              <input
-                type="email"
-                id="contact_email"
-                name="contact_email"
-                class="border rounded w-full py-2 px-3"
-                placeholder="Email address for applicants"
-                required
-              />
-            </div>
-            <div class="mb-4">
-              <label
-                for="contact_phone"
-                class="block text-gray-700 font-bold mb-2"
-                >Contact Phone</label
-              >
-              <input
-                type="tel"
-                id="contact_phone"
-                name="contact_phone"
-                class="border rounded w-full py-2 px-3"
-                placeholder="Optional phone for applicants"
-              />
-            </div>
+                  <!-- Contact Email -->
+                  <div class="group">
+                    <label for="contact_email" class="block text-sm font-semibold text-slate-300 mb-2 transition-colors group-focus-within:text-brand-400">Contact Email</label>
+                    <input
+                      type="email"
+                      id="contact_email"
+                      name="contact_email"
+                      class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
+                      placeholder="careers@company.com"
+                      required
+                    />
+                  </div>
 
-            <div>
-              <button
-                class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
-                type="submit"
-              >
-                Add Job
-              </button>
-            </div>
-          </form>
+                  <!-- Contact Phone -->
+                  <div class="group">
+                    <label for="contact_phone" class="block text-sm font-semibold text-slate-300 mb-2 transition-colors group-focus-within:text-brand-400">Contact Phone (Optional)</label>
+                    <input
+                      type="tel"
+                      id="contact_phone"
+                      name="contact_phone"
+                      class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
+                      placeholder="(555) 123-4567"
+                    />
+                  </div>
+
+                  <!-- Company Description -->
+                  <div class="group md:col-span-2">
+                    <label for="company_description" class="block text-sm font-semibold text-slate-300 mb-2 transition-colors group-focus-within:text-brand-400">Company Overview</label>
+                    <textarea
+                      id="company_description"
+                      name="company_description"
+                      class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300 resize-y"
+                      rows="4"
+                      placeholder="What is your company's mission and culture?"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="pt-6">
+                <button
+                  type="submit"
+                  class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-bold text-lg transition-all shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] transform hover:-translate-y-1"
+                >
+                  Publish Role
+                </button>
+              </div>
+
+            </form>
+          </div>
         </div>
       </div>
     </section>
