@@ -1,0 +1,22 @@
+/* Custom CSS for the search bar */
+.search-container {
+  position: relative;
+  width: 100%;
+}
+.search-container input {
+  width: 100%;
+  padding-right: 40px; /* Space for the icon */
+}
+.search-container button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280; /* Default icon color */
+}
+.search-container button:hover {
+  color: #6366f1; /* Icon color on hover */
+}
