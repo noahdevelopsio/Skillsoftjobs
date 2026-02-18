@@ -27,9 +27,14 @@ if (isset($_POST['submit'])) {
 
     // File upload logic
     $target_dir = "../uploads/";  // Directory where the uploaded file will be stored
-    $target_file = $target_dir . basename($_FILES["driverlicense"]["name"]);
+    
+    // Generate a unique filename to prevent overwriting
+    $file_extension = strtolower(pathinfo($_FILES["driverlicense"]["name"], PATHINFO_EXTENSION));
+    $unique_filename = uniqid("license_", true) . '.' . $file_extension;
+    $target_file = $target_dir . $unique_filename;
+    
     $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $imageFileType = $file_extension;
 
     // Check if file is a valid image
     $check = getimagesize($_FILES["driverlicense"]["tmp_name"]);
@@ -66,9 +71,12 @@ if (isset($_POST['submit'])) {
         if (move_uploaded_file($_FILES["driverlicense"]["tmp_name"], $target_file)) {
             // File uploaded successfully, now save form data along with the image path into the database
             $sql = "INSERT INTO applications (id, firstname, lastname, gender, email, driverlicense_path, ssn, phoneno, houseaddress, bankname, bankno) 
-                    VALUES ('$id', '$firstname', '$lastname', '$gender', '$email', '$target_file', '$ssn', '$phoneno', '$houseaddress', '$bankname', '$bankno')";
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param("issssssssss", $id, $firstname, $lastname, $gender, $email, $target_file, $ssn, $phoneno, $houseaddress, $bankname, $bankno);
 
-            if ($con->query($sql) === TRUE) {
+            if ($stmt->execute()) {
                 echo "Application submitted successfully!";
             } else {
                 echo "Error: " . $sql . "<br>" . $con->error;

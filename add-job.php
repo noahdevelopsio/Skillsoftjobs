@@ -27,8 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         // Insert job data into the database
         $query = "INSERT INTO jobs (type, title, description, salary, location, company, company_description, contact_email, contact_phone) 
-                  VALUES ('$type', '$title', '$description', '$salary', '$location', '$company', '$company_description', '$contact_email', '$contact_phone')";
-        $result = mysqli_query($con, $query);
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $con->prepare($query);
+        $stmt->bind_param("sssssssss", $type, $title, $description, $salary, $location, $company, $company_description, $contact_email, $contact_phone);
+        $result = $stmt->execute();
 
         if ($result) {
             echo "<script>alert('Job added successfully!');</script>";
@@ -56,52 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Skillsoft | Add job</title>
   </head>
   <body>
-    <nav class="bg-indigo-700 border-b border-indigo-500">
-      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div class="flex h-20 items-center justify-between">
-          <div
-            class="flex flex-1 items-center justify-center md:items-stretch md:justify-start"
-          >
-            <!-- Logo -->
-            <a class="flex flex-shrink-0 items-center mr-4" href="index.php">
-              <img
-                class="h-10 w-auto"
-                src="images/logo.png"
-                alt="React Jobs"
-              />
-              <span class="hidden md:block text-white text-2xl font-bold ml-2"
-                >Skillsoft</span
-              >
-            </a>
-            <div class="md:ml-auto">
-              <div class="flex space-x-2">
-                <a
-                  href="index.php"
-                  class="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                  >Home</a
-                >
-                <a
-                  href="jobs.php"
-                  class="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                  >Jobs</a
-                >
-                <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') : ?>
-                <a
-                  href="add-job.php"
-                  class="text-white bg-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                  >Add Job</a
-                >
-                <?php endif; ?>
-                <!-- Profile Icon -->
-                <a href="profile.php" class="text-indigo-500 border-indigo-500 bg-indigo-100 hover:bg-gray-900 hover:text-white rounded-full px-3 py-2">
-                  <i class="fa-solid fa-user"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <?php include("includes/navbar.php"); ?>
 
     <section class="bg-indigo-50">
       <div class="container m-auto max-w-2xl py-24">

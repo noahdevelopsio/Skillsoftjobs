@@ -32,9 +32,12 @@
               $password = mysqli_real_escape_string($con, $_POST['password']);
 
               // Verify unique email
-              $verify_query = mysqli_query($con, "SELECT Email FROM users WHERE Email='$email'");
+              $stmt = $con->prepare("SELECT Email FROM users WHERE Email=?");
+              $stmt->bind_param("s", $email);
+              $stmt->execute();
+              $verify_query = $stmt->get_result();
 
-              if (mysqli_num_rows($verify_query) != 0) {
+              if ($verify_query->num_rows != 0) {
                   echo "<div class='message'>
                             <p>This email is already in use. Please try another one.</p>
                         </div> <br>";
@@ -42,9 +45,11 @@
               } else {
                   // Insert user into the database (without hashing the password)
                   $insert_query = "INSERT INTO users (Firstname, Lastname, Username, Gender, Occupation, Role, Email, Password) 
-                                   VALUES ('$firstname', '$lastname', '$username', '$gender', '$occupation', 'user', '$email', '$password')";
+                                   VALUES (?, ?, ?, ?, ?, 'user', ?, ?)";
+                  $stmt = $con->prepare($insert_query);
+                  $stmt->bind_param("sssssss", $firstname, $lastname, $username, $gender, $occupation, $email, $password);
 
-                  if (mysqli_query($con, $insert_query)) {
+                  if ($stmt->execute()) {
                       echo "<div class='message'>
                                 <p>Registration successful!</p>
                             </div> <br>";

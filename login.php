@@ -8,10 +8,13 @@ if (isset($_POST['submit'])) {
     $password = mysqli_real_escape_string($con, $_POST['password']);
 
     // Fetch user from the database
-    $query = "SELECT * FROM users WHERE Email='$email'";
-    $result = mysqli_query($con, $query);
+    $query = "SELECT * FROM users WHERE Email=?";
+    $stmt = $con->prepare($query);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if (mysqli_num_rows($result) == 1) {
+    if ($result->num_rows == 1) {
         $row = mysqli_fetch_assoc($result);
 
         // Verify password (if hashed, use password_verify())
