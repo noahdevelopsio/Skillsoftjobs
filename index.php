@@ -16,37 +16,33 @@ $result = mysqli_query($con, $query);
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <?php include("includes/head.php"); ?>
     <title>Skillsoft | Begin a Career in Tech</title>
   </head>
   <body>
     <?php include("includes/navbar.php"); ?>
 
 
-    <!-- Hero -->
-    <section class="bg-indigo-700 py-20 mb-4">
-      <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center"
-      >
+    <!-- Premium Hero -->
+    <section class="relative bg-slate-900 py-28 mb-10 overflow-hidden">
+      <!-- Decorative background blur -->
+      <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
+      <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-slate-900 to-transparent"></div>
+      <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-50 to-transparent"></div>
+      
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center z-10">
         <div class="text-center">
-          <h1
-            class="text-4xl font-extrabold text-white sm:text-5xl md:text-6xl"
-          >
-            Start a Tech Career
+          <span class="inline-block py-1 px-3 rounded-full bg-brand-500/20 text-brand-100 text-sm font-semibold mb-6 border border-brand-500/30 backdrop-blur-md">🚀 Elevate Your Future</span>
+          <h1 class="text-5xl font-extrabold text-white tracking-tight sm:text-6xl md:text-7xl mb-6">
+            Start a <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">Tech Career</span>
           </h1>
-          <p class="my-4 text-xl text-white">
-            Find the job that fits your skills and needs
+          <p class="mt-4 text-xl text-slate-300 max-w-2xl mx-auto">
+            Discover opportunities that match your passion. Join the top companies innovating the future of software, design, and engineering.
           </p>
+          <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+            <a href="jobs.php" class="px-8 py-4 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold transition-all shadow-lg shadow-brand-500/30 hover:-translate-y-1">Find Jobs</a>
+            <a href="register.php" class="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold transition-all hover:-translate-y-1">Create Account</a>
+          </div>
         </div>
       </div>
     </section>
@@ -98,15 +94,14 @@ $result = mysqli_query($con, $query);
               // Loop through each job and display it
               while ($job = mysqli_fetch_assoc($result)) {
                   echo '
-                  <div class="bg-white rounded-xl shadow-md relative">
-                    <div class="p-4">
-                      <div class="mb-6">
-                        <div class="text-gray-600 my-2">' . htmlspecialchars($job['type']) . '</div>
-                        <h3 class="text-xl font-bold">' . htmlspecialchars($job['title']) . '</h3>
+                  <div class="group bg-white rounded-2xl shadow-sm hover:shadow-2xl border border-slate-100 transition-all duration-300 hover:-translate-y-2 overflow-hidden flex flex-col">
+                    <div class="p-6 flex-1">
+                      <div class="mb-4 flex justify-between items-start">
+                        <span class="inline-block bg-brand-50 text-brand-600 text-xs font-bold px-3 py-1 rounded-full">' . htmlspecialchars($job['type']) . '</span>
+                        <span class="text-slate-400 text-xs font-semibold uppercase tracking-wider">New</span>
                       </div>
-
-                      <div class="mb-5">
-                        ';
+                      <h3 class="text-2xl font-bold text-slate-900 mb-2 group-hover:text-brand-600 transition-colors">' . htmlspecialchars($job['title']) . '</h3>
+                      <div class="text-slate-500 mb-6 leading-relaxed">';
                         $description = htmlspecialchars($job['description']);
                         if (strlen($description) > 90) {
                             echo substr($description, 0, 90) . '...';
@@ -115,23 +110,21 @@ $result = mysqli_query($con, $query);
                         }
                         echo '
                       </div>
-
-                      <h3 class="text-indigo-500 mb-2">' . htmlspecialchars($job['salary']) . '</h3>
-
-                      <div class="border border-gray-100 mb-5"></div>
-
-                      <div class="flex flex-col lg:flex-row justify-between mb-4">
-                        <div class="text-orange-700 mb-3">
-                          <i class="fa-solid fa-location-dot text-lg"></i>
-                          ' . htmlspecialchars($job['location']) . '
-                        </div>
-                        <a
-                          href="job-details.php?id=' . $job['id'] . '"
-                          class="h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm"
-                        >
-                          Read More
-                        </a>
+                      <div class="flex items-center text-slate-800 font-bold mb-2">
+                        <i class="fa-solid fa-money-bill-wave text-brand-500 mr-2"></i>' . htmlspecialchars($job['salary']) . '
                       </div>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+                      <div class="text-slate-600 text-sm font-medium flex items-center">
+                        <i class="fa-solid fa-location-dot text-slate-400 mr-2 text-lg"></i>
+                        ' . htmlspecialchars($job['location']) . '
+                      </div>
+                      <a
+                        href="job-details.php?id=' . $job['id'] . '"
+                        class="w-full sm:w-auto bg-slate-900 hover:bg-brand-600 text-white px-6 py-2.5 rounded-xl text-center text-sm font-semibold transition-colors shadow-md"
+                      >
+                        Review Role
+                      </a>
                     </div>
                   </div>';
               }
