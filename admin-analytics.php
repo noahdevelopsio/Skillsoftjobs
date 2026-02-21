@@ -71,6 +71,11 @@ $result = mysqli_query($con, $query);
                                     <div class="text-xs text-slate-500 mt-0.5 ml-4">
                                         <?php echo htmlspecialchars($visitor['country']) . ' (' . htmlspecialchars($visitor['zip']) . ')'; ?>
                                     </div>
+                                    <?php if (!empty($visitor['latitude']) && !empty($visitor['longitude'])): ?>
+                                    <div class="text-[10px] uppercase tracking-wider text-slate-600 mt-1 ml-4 font-mono">
+                                        <?php echo htmlspecialchars($visitor['latitude']) . ', ' . htmlspecialchars($visitor['longitude']); ?>
+                                    </div>
+                                    <?php endif; ?>
                                 </td>
                                 <td class="py-4 px-6 hidden sm:table-cell">
                                     <div class="text-sm font-medium text-indigo-300/80 max-w-[200px] truncate" title="<?php echo htmlspecialchars($visitor['page_visited']); ?>">

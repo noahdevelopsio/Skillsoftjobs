@@ -44,8 +44,8 @@ function trackVisitor($conn) {
         if (file_exists($cache_file) && (time() - filemtime($cache_file)) < 86400) {
             $geoData = json_decode(file_get_contents($cache_file), true);
         } else {
-            // Fetch extended details from ip-api.com
-            $api_url = "http://ip-api.com/json/{$ip}?fields=status,country,regionName,city,zip,timezone,isp";
+            // Fetch extended details from ip-api.com including lat/lon
+            $api_url = "http://ip-api.com/json/{$ip}?fields=status,country,regionName,city,zip,timezone,isp,lat,lon";
             
             // Use stream context to set a short timeout so we don't block page load
             $ctx = stream_context_create(['http' => ['timeout' => 2]]);
@@ -66,15 +66,17 @@ function trackVisitor($conn) {
         $zip = $geoData['zip'] ?? 'Unknown';
         $timezone = $geoData['timezone'] ?? 'Unknown';
         $isp = $geoData['isp'] ?? 'Unknown';
+        $latitude = $geoData['lat'] ?? null;
+        $longitude = $geoData['lon'] ?? null;
     }
 
     $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown';
     $page_visited = $_SERVER['REQUEST_URI'] ?? 'Unknown';
 
     try {
-        $stmt = $conn->prepare("INSERT INTO visitors (ip_address, country, city, region, zip, time_zone, isp, user_agent, page_visited) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO visitors (ip_address, country, city, region, zip, latitude, longitude, time_zone, isp, user_agent, page_visited) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         if ($stmt) {
-            $stmt->bind_param("sssssssss", $ip, $country, $city, $region, $zip, $timezone, $isp, $user_agent, $page_visited);
+            $stmt->bind_param("sssssddssss", $ip, $country, $city, $region, $zip, $latitude, $longitude, $timezone, $isp, $user_agent, $page_visited);
             $stmt->execute();
             $stmt->close();
         }
