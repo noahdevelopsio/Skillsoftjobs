@@ -18,6 +18,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <a href="employer-dashboard.php" class="<?php echo ($current_page == 'employer-dashboard.php') ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white hover:bg-white/5'; ?> rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200">
                     <i class="fa-solid fa-chart-line mr-1.5 text-xs"></i>Dashboard
                 </a>
+                <a href="admin-analytics.php" class="<?php echo ($current_page == 'admin-analytics.php') ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white hover:bg-white/5'; ?> rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200">
+                    <i class="fa-solid fa-radar mr-1.5 text-xs"></i>Analytics
+                </a>
                 <a href="add-job.php" class="<?php echo ($current_page == 'add-job.php') ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white hover:bg-white/5'; ?> rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200">
                     <i class="fa-solid fa-plus mr-1.5 text-xs"></i>Post Job
                 </a>
