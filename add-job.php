@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $company_description = mysqli_real_escape_string($con, $_POST['company_description']);
     $contact_email = mysqli_real_escape_string($con, $_POST['contact_email']);
     $contact_phone = mysqli_real_escape_string($con, $_POST['contact_phone']);
+    $candidate_requirements = mysqli_real_escape_string($con, $_POST['candidate_requirements']);
 
     // Application Requirements
     $req_passport = isset($_POST['req_passport']) ? 1 : 0;
@@ -41,10 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $employer_id = $_SESSION['id'];
         
         // Insert job data into the database
-        $query = "INSERT INTO jobs (employer_id, type, title, description, salary, location, company, company_description, contact_email, contact_phone, req_passport, req_id, req_coverletter) 
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO jobs (employer_id, type, title, description, candidate_requirements, salary, location, company, company_description, contact_email, contact_phone, req_passport, req_id, req_coverletter) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $con->prepare($query);
-        $stmt->bind_param("isssssssssiii", $employer_id, $type, $title, $description, $salary, $location, $company, $company_description, $contact_email, $contact_phone, $req_passport, $req_id, $req_coverletter);
+        $stmt->bind_param("issssssssssiii", $employer_id, $type, $title, $description, $candidate_requirements, $salary, $location, $company, $company_description, $contact_email, $contact_phone, $req_passport, $req_id, $req_coverletter);
         $result = $stmt->execute();
 
         if ($result) {
@@ -228,6 +229,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                       class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300 resize-y"
                       rows="4"
                       placeholder="What is your company's mission and culture?"
+                    ></textarea>
+                  </div>
+
+                  <!-- Candidate Requirements -->
+                  <div class="group md:col-span-2">
+                    <label for="candidate_requirements" class="block text-sm font-semibold text-slate-300 mb-2 transition-colors group-focus-within:text-brand-400">Candidate Requirements & Experience</label>
+                    <textarea
+                      id="candidate_requirements"
+                      name="candidate_requirements"
+                      class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300 resize-y"
+                      rows="4"
+                      placeholder="e.g. 2+ years of PHP experience, excellent communication skills..."
+                      required
                     ></textarea>
                   </div>
                 </div>

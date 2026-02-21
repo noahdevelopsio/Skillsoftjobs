@@ -115,27 +115,43 @@ $job = mysqli_fetch_assoc($result);
               </h3>
 
               <ul class="space-y-4 text-slate-300 text-lg relative z-10">
+                <?php if (!empty($job['candidate_requirements'])): ?>
                 <li class="flex items-start bg-slate-800/30 p-4 rounded-xl border border-slate-700/50">
                   <i class="fa-solid fa-check text-brand-400 mt-1 mr-4 bg-brand-400/10 p-1.5 rounded-md"></i> 
-                  <span>No prior experience mandated; fundamental computer literacy required.</span>
+                  <span class="whitespace-pre-line"><?php echo nl2br(htmlspecialchars($job['candidate_requirements'])); ?></span>
                 </li>
+                <?php else: ?>
+                <li class="flex items-start bg-slate-800/30 p-4 rounded-xl border border-slate-700/50">
+                  <i class="fa-solid fa-check text-brand-400 mt-1 mr-4 bg-brand-400/10 p-1.5 rounded-md"></i> 
+                  <span>No specific prior experience mandated; fundamental computer literacy required.</span>
+                </li>
+                <?php endif; ?>
+                
                 <li class="flex items-start bg-slate-800/30 p-4 rounded-xl border border-slate-700/50">
                   <i class="fa-solid fa-check text-brand-400 mt-1 mr-4 bg-brand-400/10 p-1.5 rounded-md"></i> 
                   <span>Digital Resume / CV</span>
                 </li>
+                
+                <?php if ($job['req_coverletter']): ?>
                 <li class="flex items-start bg-slate-800/30 p-4 rounded-xl border border-slate-700/50">
                   <i class="fa-solid fa-check text-brand-400 mt-1 mr-4 bg-brand-400/10 p-1.5 rounded-md"></i> 
                   <span>Cover letter articulating fit</span>
                 </li>
+                <?php endif; ?>
+
+                <?php if ($job['req_passport']): ?>
                 <li class="flex items-start bg-slate-800/30 p-4 rounded-xl border border-slate-700/50">
                   <i class="fa-solid fa-check text-brand-400 mt-1 mr-4 bg-brand-400/10 p-1.5 rounded-md"></i> 
-                  <span>Brief addendum outlining role alignment and working availability.</span>
+                  <span>Passport Photo</span>
                 </li>
-                <li class="flex items-start bg-violet-900/20 p-4 rounded-xl border border-violet-500/30 relative overflow-hidden">
-                  <div class="absolute inset-0 bg-gradient-to-r from-violet-500/10 to-transparent pointer-events-none"></div>
-                  <i class="fa-solid fa-bolt text-violet-400 mt-1 mr-4 bg-violet-400/10 p-1.5 rounded-md relative z-10"></i> 
-                  <span class="text-white font-medium relative z-10">Mandatory onboarding training for 2 Weeks: <span class="bg-violet-500/20 px-2 py-0.5 rounded text-violet-300">Compensated at $30/hour</span></span>
-                </li> 
+                <?php endif; ?>
+
+                <?php if ($job['req_id']): ?>
+                <li class="flex items-start bg-slate-800/30 p-4 rounded-xl border border-slate-700/50">
+                  <i class="fa-solid fa-check text-brand-400 mt-1 mr-4 bg-brand-400/10 p-1.5 rounded-md"></i> 
+                  <span>National ID or Driver's License</span>
+                </li>
+                <?php endif; ?>
               </ul>                             
               
               <div class="mt-10 relative z-10">
