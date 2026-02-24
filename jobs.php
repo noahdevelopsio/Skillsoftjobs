@@ -9,23 +9,42 @@ if (!isset($_SESSION['valid'])) {
 }
 
 // Handle filter input
-$filter = isset($_GET['filter']) ? mysqli_real_escape_string($con, $_GET['filter']) : '';
+$filter = isset($_GET['filter']) ? trim(mysqli_real_escape_string($con, $_GET['filter'])) : '';
 
-// Fetch jobs based on filter
-// Fetch jobs based on filter
 if (!empty($filter)) {
-    $query = "SELECT * FROM jobs 
-              WHERE title LIKE ? 
-              OR location LIKE ? 
-              OR type LIKE ? 
-              OR description LIKE ?";
-    $stmt = $con->prepare($query);
-    $searchTerm = "%{$filter}%";
-    $stmt->bind_param("ssss", $searchTerm, $searchTerm, $searchTerm, $searchTerm);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Split the search string into individual keywords
+    $keywords = explode(' ', $filter);
+    
+    // Build dynamic SQL for keyword searching
+    $conditions = [];
+    $types = "";
+    $params = [];
+    
+    foreach ($keywords as $word) {
+        $word = trim($word);
+        if (strlen($word) > 1) { // Ignore single-character words
+            $conditions[] = "(title LIKE ? OR location LIKE ? OR type LIKE ? OR company LIKE ? OR description LIKE ?)";
+            $types .= "sssss";
+            $searchTerm = "%{$word}%";
+            // Add the same parameter 5 times for the 5 columns checked
+            array_push($params, $searchTerm, $searchTerm, $searchTerm, $searchTerm, $searchTerm);
+        }
+    }
+    
+    if (count($conditions) > 0) {
+        $query = "SELECT * FROM jobs WHERE " . implode(" AND ", $conditions) . " ORDER BY id DESC";
+        $stmt = $con->prepare($query);
+        
+        // Dynamically bind parameters
+        $stmt->execute(array_merge([$types], $params));
+        $result = $stmt->get_result();
+    } else {
+        // Fallback if no valid keywords were entered
+        $query = "SELECT * FROM jobs ORDER BY id DESC";
+        $result = mysqli_query($con, $query);
+    }
 } else {
-    $query = "SELECT * FROM jobs";
+    $query = "SELECT * FROM jobs ORDER BY id DESC";
     $result = mysqli_query($con, $query);
 }
 ?>

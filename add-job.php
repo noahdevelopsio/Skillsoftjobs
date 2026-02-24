@@ -25,11 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($type) || empty($title) || empty($description) || empty($salary) || empty($location) || empty($contact_email)) {
         echo "<script>alert('Please fill in all required fields.');</script>";
     } else {
+        // Retrieve user_id from session to act as employer_id
+        $employer_id = $_SESSION['id'];
+        
         // Insert job data into the database
-        $query = "INSERT INTO jobs (type, title, description, salary, location, company, company_description, contact_email, contact_phone) 
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO jobs (employer_id, type, title, description, salary, location, company, company_description, contact_email, contact_phone) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $con->prepare($query);
-        $stmt->bind_param("sssssssss", $type, $title, $description, $salary, $location, $company, $company_description, $contact_email, $contact_phone);
+        $stmt->bind_param("isssssssss", $employer_id, $type, $title, $description, $salary, $location, $company, $company_description, $contact_email, $contact_phone);
         $result = $stmt->execute();
 
         if ($result) {

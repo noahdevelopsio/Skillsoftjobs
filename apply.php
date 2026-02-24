@@ -3,6 +3,13 @@ session_start();
 include("php/config.php");
 if (!isset($_SESSION['valid'])) {
   header("Location: login.php");
+  exit();
+}
+
+// Ensure job_id is present
+$job_id = isset($_GET['job_id']) ? intval($_GET['job_id']) : 0;
+if ($job_id === 0) {
+    die("Error: No job selected. Please go to the <a href='jobs.php' class='text-brand-500 underline'>Jobs</a> page and select a role to apply for.");
 }
 ?>
 <!DOCTYPE html>
@@ -32,6 +39,9 @@ if (!isset($_SESSION['valid'])) {
 
           <div class="relative z-10">
             <form action="php/upload.php" method="post" enctype="multipart/form-data" class="space-y-8">
+              
+              <!-- Hidden Job ID -->
+              <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job_id); ?>" />
               
               <!-- Personal Details Section -->
               <div class="space-y-6">
