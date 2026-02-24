@@ -12,6 +12,12 @@ $job_id = isset($_GET['job_id']) ? intval($_GET['job_id']) : 0;
 if ($job_id === 0) {
     die("Error: No job selected. Please go to the <a href='jobs.php' class='text-brand-500 underline'>Jobs</a> page and select a role to apply for.");
 }
+
+// Fetch logged-in user's data to auto-fill form
+$user_id = $_SESSION['id'];
+$user_query = "SELECT Firstname, Lastname, Gender, Email FROM users WHERE id = $user_id";
+$user_result = mysqli_query($con, $user_query);
+$user = mysqli_fetch_assoc($user_result);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,6 +71,7 @@ if ($job_id === 0) {
                       name="firstname"
                       class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
                       placeholder="John"
+                      value="<?php echo htmlspecialchars($user['Firstname'] ?? ''); ?>"
                       required
                     />
                   </div>
@@ -78,6 +85,7 @@ if ($job_id === 0) {
                       name="lastname"
                       class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
                       placeholder="Doe"
+                      value="<?php echo htmlspecialchars($user['Lastname'] ?? ''); ?>"
                       required
                     />
                   </div>
@@ -92,10 +100,10 @@ if ($job_id === 0) {
                           class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
                           required
                         >
-                          <option value="Male" class="bg-slate-800">Male</option>
-                          <option value="Female" class="bg-slate-800">Female</option>
-                          <option value="Others" class="bg-slate-800">Other binaries</option>
-                          <option value="private" class="bg-slate-800">Prefer not to say</option>
+                          <option value="Male" class="bg-slate-800" <?php echo (($user['Gender'] ?? '') == 'Male') ? 'selected' : ''; ?>>Male</option>
+                          <option value="Female" class="bg-slate-800" <?php echo (($user['Gender'] ?? '') == 'Female') ? 'selected' : ''; ?>>Female</option>
+                          <option value="Others" class="bg-slate-800" <?php echo (($user['Gender'] ?? '') == 'Others') ? 'selected' : ''; ?>>Other binaries</option>
+                          <option value="private" class="bg-slate-800" <?php echo (($user['Gender'] ?? '') == 'private') ? 'selected' : ''; ?>>Prefer not to say</option>
                         </select>
                         <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 pointer-events-none"></i>
                     </div>
@@ -110,6 +118,7 @@ if ($job_id === 0) {
                       name="email"
                       class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
                       placeholder="john.doe@example.com"
+                      value="<?php echo htmlspecialchars($user['Email'] ?? ''); ?>"
                       required
                     />
                   </div>
@@ -205,8 +214,8 @@ if ($job_id === 0) {
                       <div class="w-12 h-12 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-brand-500/20 transition-all">
                         <i class="fa-solid fa-id-card text-xl text-slate-400 group-hover:text-brand-400 transition-colors"></i>
                       </div>
-                      <span class="block text-sm font-bold text-white mb-1">National ID / License</span>
-                      <span class="block text-xs font-medium text-slate-500">PDF, DOC, JPG, PNG</span>
+                      <span class="upload-label block text-sm font-bold text-white mb-1">National ID / License</span>
+                      <span class="upload-hint block text-xs font-medium text-slate-500">PDF, DOC, JPG, PNG</span>
                     </div>
                   </div>
 
@@ -224,8 +233,8 @@ if ($job_id === 0) {
                       <div class="w-12 h-12 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-brand-500/20 transition-all">
                         <i class="fa-solid fa-file-pdf text-xl text-slate-400 group-hover:text-brand-400 transition-colors"></i>
                       </div>
-                      <span class="block text-sm font-bold text-white mb-1">Resume / CV</span>
-                      <span class="block text-xs font-medium text-slate-500">PDF, DOC, DOCX, JPG, PNG</span>
+                      <span class="upload-label block text-sm font-bold text-white mb-1">Resume / CV</span>
+                      <span class="upload-hint block text-xs font-medium text-slate-500">PDF, DOC, DOCX, JPG, PNG</span>
                     </div>
                   </div>
 
@@ -243,8 +252,8 @@ if ($job_id === 0) {
                       <div class="w-12 h-12 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-brand-500/20 transition-all">
                         <i class="fa-solid fa-envelope-open-text text-xl text-slate-400 group-hover:text-brand-400 transition-colors"></i>
                       </div>
-                      <span class="block text-sm font-bold text-white mb-1">Cover Letter</span>
-                      <span class="block text-xs font-medium text-slate-500">PDF, DOC, DOCX</span>
+                      <span class="upload-label block text-sm font-bold text-white mb-1">Cover Letter</span>
+                      <span class="upload-hint block text-xs font-medium text-slate-500">PDF, DOC, DOCX</span>
                     </div>
                   </div>
                 </div>
@@ -271,5 +280,27 @@ if ($job_id === 0) {
     </section>
 
     <script src="js/main.js"></script>
+    <script>
+      // File upload visual feedback
+      document.querySelectorAll('input[type="file"]').forEach(input => {
+        input.addEventListener('change', function() {
+          const wrapper = this.closest('.group');
+          const nameEl = wrapper.querySelector('.file-name');
+          const iconEl = wrapper.querySelector('.upload-icon');
+          const labelEl = wrapper.querySelector('.upload-label');
+          const hintEl = wrapper.querySelector('.upload-hint');
+          
+          if (this.files.length > 0) {
+            const fileName = this.files[0].name;
+            wrapper.classList.add('border-brand-500/50', 'bg-brand-500/5');
+            wrapper.classList.remove('border-slate-700/50');
+            if (iconEl) iconEl.classList.add('text-brand-400', 'scale-110');
+            if (labelEl) labelEl.textContent = 'Selected';
+            if (hintEl) hintEl.textContent = fileName;
+            if (hintEl) hintEl.classList.add('text-brand-300');
+          }
+        });
+      });
+    </script>
   </body>
 </html>

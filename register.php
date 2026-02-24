@@ -33,6 +33,7 @@
               $username = mysqli_real_escape_string($con, $_POST['username']);
               $gender = mysqli_real_escape_string($con, $_POST['gender']);
               $occupation = mysqli_real_escape_string($con, $_POST['occupation']);
+              $country = mysqli_real_escape_string($con, $_POST['country']);
               $email = mysqli_real_escape_string($con, $_POST['email']);
               $password = mysqli_real_escape_string($con, $_POST['password']);
 
@@ -49,10 +50,10 @@
                   echo "<a href='javascript:self.history.back()' class='block w-full text-center bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-4 rounded-xl transition-all border border-white/10'>Go Back</a>";
               } else {
                   // Insert user into the database (without hashing the password)
-                  $insert_query = "INSERT INTO users (Firstname, Lastname, Username, Gender, Occupation, Role, Email, Password) 
-                                   VALUES (?, ?, ?, ?, ?, 'user', ?, ?)";
+                  $insert_query = "INSERT INTO users (Firstname, Lastname, Username, Gender, Occupation, Role, Email, Country, Password) 
+                                   VALUES (?, ?, ?, ?, ?, 'user', ?, ?, ?)";
                   $stmt = $con->prepare($insert_query);
-                  $stmt->bind_param("sssssss", $firstname, $lastname, $username, $gender, $occupation, $email, $password);
+                  $stmt->bind_param("ssssssss", $firstname, $lastname, $username, $gender, $occupation, $email, $country, $password);
 
                   if ($stmt->execute()) {
                       echo "<div class='bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4 mb-6 text-center text-emerald-400 font-medium'>
@@ -137,6 +138,19 @@
                 name="occupation"
                 class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
                 placeholder="Software Engineer, Designer, etc."
+                required
+              />
+            </div>
+
+            <!-- Country -->
+            <div class="group">
+              <label for="country" class="block text-sm font-semibold text-slate-300 mb-2 transition-colors group-focus-within:text-brand-400">Country</label>
+              <input
+                type="text"
+                id="country"
+                name="country"
+                class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
+                placeholder="Nigeria"
                 required
               />
             </div>

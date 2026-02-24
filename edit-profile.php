@@ -24,10 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = mysqli_real_escape_string($con, $_POST['username']);
     $gender = mysqli_real_escape_string($con, $_POST['gender']);
     $occupation = mysqli_real_escape_string($con, $_POST['occupation']);
+    $country = mysqli_real_escape_string($con, $_POST['country']);
     $email = mysqli_real_escape_string($con, $_POST['email']);
 
     // Update user data in the database
-    $update_query = "UPDATE users SET Firstname = '$firstname', Lastname = '$lastname', Username = '$username', Gender = '$gender', Occupation = '$occupation', Email = '$email' WHERE id = $user_id";
+    $update_query = "UPDATE users SET Firstname = '$firstname', Lastname = '$lastname', Username = '$username', Gender = '$gender', Occupation = '$occupation', Country = '$country', Email = '$email' WHERE id = $user_id";
     mysqli_query($con, $update_query);
 
     // Update session
@@ -147,6 +148,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 name="occupation"
                 class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
                 value="<?php echo htmlspecialchars($user['Occupation']); ?>"
+                required
+              />
+            </div>
+
+            <!-- Country -->
+            <div class="group">
+              <label for="country" class="block text-sm font-semibold text-slate-300 mb-2 transition-colors group-focus-within:text-brand-400">Country</label>
+              <input
+                type="text"
+                id="country"
+                name="country"
+                class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
+                value="<?php echo htmlspecialchars($user['Country'] ?? ''); ?>"
+                placeholder="Nigeria"
                 required
               />
             </div>

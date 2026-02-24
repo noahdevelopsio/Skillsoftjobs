@@ -105,6 +105,15 @@ $user = mysqli_fetch_assoc($result);
 
                 <div class="group">
                   <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1.5 flex items-center">
+                    <i class="fa-solid fa-globe mr-2 text-slate-600 group-hover:text-brand-400 transition-colors"></i> Country
+                  </h4>
+                  <p class="text-lg font-medium text-slate-200 bg-slate-900/50 px-4 py-2.5 rounded-xl border border-slate-700/50 shadow-inner truncate">
+                    <?php echo htmlspecialchars($user['Country'] ?? 'Not set'); ?>
+                  </p>
+                </div>
+
+                <div class="group">
+                  <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1.5 flex items-center">
                     <i class="fa-solid fa-venus-mars mr-2 text-slate-600 group-hover:text-brand-400 transition-colors"></i> Gender
                   </h4>
                   <p class="text-lg font-medium text-slate-200 bg-slate-900/50 px-4 py-2.5 rounded-xl border border-slate-700/50 shadow-inner truncate">
