@@ -1,5 +1,6 @@
 <?php
-session_start();
+include("php/session_helper.php");
+init_session();
 include("php/config.php");
 if (!isset($_SESSION['valid'])) {
   header("Location: login.php");

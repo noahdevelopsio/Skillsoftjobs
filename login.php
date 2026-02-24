@@ -1,5 +1,6 @@
 <?php
-session_start();
+include("php/session_helper.php");
+init_session();
 include("php/config.php");
 
 if (isset($_POST['submit'])) {
@@ -24,6 +25,9 @@ if (isset($_POST['submit'])) {
             $_SESSION['username'] = $row['Username'];
             $_SESSION['role'] = $row['Role'];
             $_SESSION['id'] = $row['id'];
+
+            // Save session to cookie for serverless persistence
+            save_session();
 
             // Redirect to the home page
             header("Location: index.php");

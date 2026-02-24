@@ -1,6 +1,7 @@
 <?php
-session_start();
-include("config.php");
+include(__DIR__ . "/session_helper.php");
+init_session();
+include(__DIR__ . "/config.php");
 
 // Check if the user is logged in
 if (!isset($_SESSION['valid'])) {
