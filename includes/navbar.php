@@ -27,6 +27,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <a href="profile.php" class="ml-2 w-9 h-9 rounded-full bg-gradient-to-br from-brand-500 to-violet-500 flex items-center justify-center text-white text-sm font-bold hover:shadow-[0_0_15px_rgba(124,58,237,0.4)] transition-all">
                     <i class="fa-solid fa-user text-xs"></i>
                 </a>
+                <!-- Logout -->
+                <a href="php/logout.php" class="ml-1 w-9 h-9 rounded-full bg-white/5 hover:bg-red-500/20 border border-white/10 hover:border-red-500/30 flex items-center justify-center text-slate-400 hover:text-red-400 text-sm transition-all" title="Logout">
+                    <i class="fa-solid fa-right-from-bracket text-xs"></i>
+                </a>
             </div>
 
             <!-- Mobile Hamburger Button -->
@@ -55,6 +59,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <?php endif; ?>
             <a href="profile.php" class="<?php echo ($current_page == 'profile.php') ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white hover:bg-white/5'; ?> block rounded-lg px-4 py-3 text-sm font-semibold transition-all">
                 <i class="fa-solid fa-user mr-2 w-5 text-center"></i>Profile
+            </a>
+            <a href="php/logout.php" class="block rounded-lg px-4 py-3 text-sm font-semibold text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all">
+                <i class="fa-solid fa-right-from-bracket mr-2 w-5 text-center"></i>Logout
             </a>
         </div>
     </div>
