@@ -233,7 +233,7 @@ $user = mysqli_fetch_assoc($user_result);
                       <div class="w-12 h-12 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-brand-500/20 transition-all">
                         <i class="fa-solid fa-id-card text-xl text-slate-400 group-hover:text-brand-400 transition-colors"></i>
                       </div>
-                      <span class="upload-label block text-sm font-bold text-white mb-1">National ID / License</span>
+                      <span class="upload-label block text-sm font-bold text-white mb-1">National ID / Driver's License</span>
                       <span class="upload-hint block text-xs font-medium text-slate-500">PDF, DOC, JPG, PNG</span>
                     </div>
                   </div>
