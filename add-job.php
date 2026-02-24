@@ -9,6 +9,12 @@ if (!isset($_SESSION['valid'])) {
     exit();
 }
 
+// Only admins (employers) can post jobs
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: jobs.php");
+    exit();
+}
+
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Retrieve form data

@@ -14,10 +14,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <div class="hidden md:flex items-center space-x-1">
                 <a href="index.php" class="<?php echo ($current_page == 'index.php') ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white hover:bg-white/5'; ?> rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200">Home</a>
                 <a href="jobs.php" class="<?php echo ($current_page == 'jobs.php') ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white hover:bg-white/5'; ?> rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200">Jobs</a>
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') : ?>
                 <a href="employer-dashboard.php" class="<?php echo ($current_page == 'employer-dashboard.php') ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white hover:bg-white/5'; ?> rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200">
                     <i class="fa-solid fa-chart-line mr-1.5 text-xs"></i>Dashboard
                 </a>
-                <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') : ?>
                 <a href="add-job.php" class="<?php echo ($current_page == 'add-job.php') ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white hover:bg-white/5'; ?> rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200">
                     <i class="fa-solid fa-plus mr-1.5 text-xs"></i>Post Job
                 </a>
@@ -45,10 +45,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <a href="jobs.php" class="<?php echo ($current_page == 'jobs.php') ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white hover:bg-white/5'; ?> block rounded-lg px-4 py-3 text-sm font-semibold transition-all">
                 <i class="fa-solid fa-briefcase mr-2 w-5 text-center"></i>Jobs
             </a>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') : ?>
             <a href="employer-dashboard.php" class="<?php echo ($current_page == 'employer-dashboard.php') ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white hover:bg-white/5'; ?> block rounded-lg px-4 py-3 text-sm font-semibold transition-all">
                 <i class="fa-solid fa-chart-line mr-2 w-5 text-center"></i>Dashboard
             </a>
-            <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') : ?>
             <a href="add-job.php" class="<?php echo ($current_page == 'add-job.php') ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white hover:bg-white/5'; ?> block rounded-lg px-4 py-3 text-sm font-semibold transition-all">
                 <i class="fa-solid fa-plus mr-2 w-5 text-center"></i>Post Job
             </a>

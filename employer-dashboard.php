@@ -9,6 +9,12 @@ if (!isset($_SESSION['valid'])) {
     exit();
 }
 
+// Only admins (employers) can access this page
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: jobs.php");
+    exit();
+}
+
 $user_id = $_SESSION['id'];
 
 // Check if the user is submitting a job deletion
