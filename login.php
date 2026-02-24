@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
             $_SESSION['valid'] = $row['Email'];
             $_SESSION['username'] = $row['Username'];
             $_SESSION['role'] = $row['Role'];
-            $_SESSION['id'] = $row['Id'];
+            $_SESSION['id'] = $row['id'];
 
             // Redirect to the home page
             header("Location: index.php");
