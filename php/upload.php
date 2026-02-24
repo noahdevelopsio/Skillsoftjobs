@@ -27,6 +27,14 @@ if (isset($_POST['submit'])) {
         die("Invalid job reference. Please apply from a valid job listing.");
     }
 
+    // Fetch job requirements
+    $job_query = "SELECT req_passport, req_id, req_coverletter FROM jobs WHERE id = $job_id";
+    $job_result = mysqli_query($con, $job_query);
+    if (!$job_result || mysqli_num_rows($job_result) === 0) {
+        die("Job not found.");
+    }
+    $job_reqs = mysqli_fetch_assoc($job_result);
+
     $allowed_extensions = ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png'];
     $max_size = 10000000; // 10MB
 
@@ -54,12 +62,23 @@ if (isset($_POST['submit'])) {
         ];
     }
 
-    // Process all 3 file uploads
-    // Resume is required
+    // Process file uploads
+    // Resume is always required
     if (!isset($_FILES['resume']) || $_FILES['resume']['error'] !== UPLOAD_ERR_OK) {
         die("Error: Please upload a valid resume/CV document.");
     }
     
+    // Check dynamic requirements
+    if ($job_reqs['req_id'] && (!isset($_FILES['driverlicense']) || $_FILES['driverlicense']['error'] !== UPLOAD_ERR_OK)) {
+        die("Error: Please upload a valid National ID / Driver's License.");
+    }
+    if ($job_reqs['req_coverletter'] && (!isset($_FILES['coverletter']) || $_FILES['coverletter']['error'] !== UPLOAD_ERR_OK)) {
+        die("Error: Please upload a valid Cover Letter.");
+    }
+    if ($job_reqs['req_passport'] && (!isset($_FILES['passport']) || $_FILES['passport']['error'] !== UPLOAD_ERR_OK)) {
+        die("Error: Please upload a valid Passport Photo.");
+    }
+
     $resume = processUpload('resume', $allowed_extensions, $max_size);
     $id_doc = processUpload('driverlicense', $allowed_extensions, $max_size);
     $coverletter = processUpload('coverletter', $allowed_extensions, $max_size);

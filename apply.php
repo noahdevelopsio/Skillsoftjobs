@@ -13,6 +13,11 @@ if ($job_id === 0) {
     die("Error: No job selected. Please go to the <a href='jobs.php' class='text-brand-500 underline'>Jobs</a> page and select a role to apply for.");
 }
 
+// Fetch job specific requirements
+$job_query = "SELECT req_passport, req_id, req_coverletter FROM jobs WHERE id = $job_id";
+$job_result = mysqli_query($con, $job_query);
+$job_reqs = mysqli_fetch_assoc($job_result);
+
 // Fetch logged-in user's data to auto-fill form
 $user_id = $_SESSION['id'];
 $user_query = "SELECT Firstname, Lastname, Gender, Email, Country FROM users WHERE id = $user_id";
@@ -208,6 +213,8 @@ $is_african = in_array($user_country, $african_countries);
                 <h3 class="text-xl font-bold text-white border-b border-slate-700/50 pb-2 mb-4">Required Documents</h3>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  
+                  <?php if ($job_reqs && $job_reqs['req_passport']): ?>
                   <!-- Passport Photo -->
                   <div class="group relative bg-slate-900/50 border-2 border-dashed border-slate-700/50 hover:border-brand-500/50 rounded-2xl p-6 text-center transition-all duration-300">
                     <input
@@ -226,7 +233,9 @@ $is_african = in_array($user_country, $african_countries);
                       <span class="upload-hint block text-xs font-medium text-slate-500">JPG, JPEG, PNG</span>
                     </div>
                   </div>
+                  <?php endif; ?>
 
+                  <?php if ($job_reqs && $job_reqs['req_id']): ?>
                   <!-- Driver License -->
                   <div class="group relative bg-slate-900/50 border-2 border-dashed border-slate-700/50 hover:border-brand-500/50 rounded-2xl p-6 text-center transition-all duration-300">
                     <input
@@ -245,6 +254,7 @@ $is_african = in_array($user_country, $african_countries);
                       <span class="upload-hint block text-xs font-medium text-slate-500">PDF, DOC, JPG, PNG</span>
                     </div>
                   </div>
+                  <?php endif; ?>
 
                   <!-- Resume/CV -->
                   <div class="group relative bg-slate-900/50 border-2 border-dashed border-slate-700/50 hover:border-brand-500/50 rounded-2xl p-6 text-center transition-all duration-300">
@@ -265,6 +275,7 @@ $is_african = in_array($user_country, $african_countries);
                     </div>
                   </div>
 
+                  <?php if ($job_reqs && $job_reqs['req_coverletter']): ?>
                   <!-- Cover Letter -->
                   <div class="group relative bg-slate-900/50 border-2 border-dashed border-slate-700/50 hover:border-brand-500/50 rounded-2xl p-6 text-center transition-all duration-300">
                     <input
@@ -283,6 +294,7 @@ $is_african = in_array($user_country, $african_countries);
                       <span class="upload-hint block text-xs font-medium text-slate-500">PDF, DOC, DOCX</span>
                     </div>
                   </div>
+                  <?php endif; ?>
                 </div>
               </div>
 

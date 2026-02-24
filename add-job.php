@@ -28,6 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $contact_email = mysqli_real_escape_string($con, $_POST['contact_email']);
     $contact_phone = mysqli_real_escape_string($con, $_POST['contact_phone']);
 
+    // Application Requirements
+    $req_passport = isset($_POST['req_passport']) ? 1 : 0;
+    $req_id = isset($_POST['req_id']) ? 1 : 0;
+    $req_coverletter = isset($_POST['req_coverletter']) ? 1 : 0;
+
     // Validate required fields
     if (empty($type) || empty($title) || empty($description) || empty($salary) || empty($location) || empty($contact_email)) {
         echo "<script>alert('Please fill in all required fields.');</script>";
@@ -36,10 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $employer_id = $_SESSION['id'];
         
         // Insert job data into the database
-        $query = "INSERT INTO jobs (employer_id, type, title, description, salary, location, company, company_description, contact_email, contact_phone) 
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO jobs (employer_id, type, title, description, salary, location, company, company_description, contact_email, contact_phone, req_passport, req_id, req_coverletter) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $con->prepare($query);
-        $stmt->bind_param("isssssssss", $employer_id, $type, $title, $description, $salary, $location, $company, $company_description, $contact_email, $contact_phone);
+        $stmt->bind_param("isssssssssiii", $employer_id, $type, $title, $description, $salary, $location, $company, $company_description, $contact_email, $contact_phone, $req_passport, $req_id, $req_coverletter);
         $result = $stmt->execute();
 
         if ($result) {
@@ -225,6 +230,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                       placeholder="What is your company's mission and culture?"
                     ></textarea>
                   </div>
+                </div>
+              </div>
+
+              <!-- Application Requirements -->
+              <div class="bg-slate-900/30 border border-slate-700/30 rounded-2xl p-6 md:p-8 space-y-6 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-brand-500/5 rounded-full blur-3xl pointer-events-none"></div>
+                <h3 class="text-xl font-bold text-white border-b border-slate-700/50 pb-2 mb-4">Application Requirements</h3>
+                <p class="text-sm text-slate-400 mb-4">Select which documents applicants must provide. (Resume/CV is always required)</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <label class="flex items-center space-x-3 cursor-pointer group">
+                    <div class="relative flex items-center justify-center">
+                      <input type="checkbox" name="req_passport" value="1" class="peer sr-only" checked>
+                      <div class="w-5 h-5 border-2 border-slate-600 rounded peer-checked:bg-brand-500 peer-checked:border-brand-500 transition-all"></div>
+                      <i class="fa-solid fa-check absolute text-white text-xs opacity-0 peer-checked:opacity-100 drop-shadow-sm pointer-events-none"></i>
+                    </div>
+                    <span class="text-slate-300 font-medium group-hover:text-brand-400 transition-colors">Passport Photo</span>
+                  </label>
+
+                  <label class="flex items-center space-x-3 cursor-pointer group">
+                    <div class="relative flex items-center justify-center">
+                      <input type="checkbox" name="req_id" value="1" class="peer sr-only" checked>
+                      <div class="w-5 h-5 border-2 border-slate-600 rounded peer-checked:bg-brand-500 peer-checked:border-brand-500 transition-all"></div>
+                      <i class="fa-solid fa-check absolute text-white text-xs opacity-0 peer-checked:opacity-100 drop-shadow-sm pointer-events-none"></i>
+                    </div>
+                    <span class="text-slate-300 font-medium group-hover:text-brand-400 transition-colors">National ID / License</span>
+                  </label>
+
+                  <label class="flex items-center space-x-3 cursor-pointer group">
+                    <div class="relative flex items-center justify-center">
+                      <input type="checkbox" name="req_coverletter" value="1" class="peer sr-only" checked>
+                      <div class="w-5 h-5 border-2 border-slate-600 rounded peer-checked:bg-brand-500 peer-checked:border-brand-500 transition-all"></div>
+                      <i class="fa-solid fa-check absolute text-white text-xs opacity-0 peer-checked:opacity-100 drop-shadow-sm pointer-events-none"></i>
+                    </div>
+                    <span class="text-slate-300 font-medium group-hover:text-brand-400 transition-colors">Cover Letter</span>
+                  </label>
                 </div>
               </div>
 
