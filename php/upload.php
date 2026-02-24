@@ -33,66 +33,57 @@ if (isset($_POST['submit'])) {
     }
 
     // --- File Upload Logic for Resume ---
-    // (In a real app, you'd handle license, cover letter, etc. We'll simplify to just one required document path for the DB, mapped to Resume to match user intentions previously)
-    
-    // Using the 'resume' input from the new UI
     $fileInputName = 'resume'; 
     
     if (!isset($_FILES[$fileInputName]) || $_FILES[$fileInputName]['error'] !== UPLOAD_ERR_OK) {
         die("Error: Please upload a valid resume/CV document.");
     }
 
-    $target_dir = "../uploads/";
-    
-    // Create dir if doesn't exist
-    if (!is_dir($target_dir)) {
-        mkdir($target_dir, 0755, true);
-    }
-    
-    // Generate a secure unique filename
-    $file_extension = strtolower(pathinfo($_FILES[$fileInputName]["name"], PATHINFO_EXTENSION));
+    // Validate file extension
+    $original_filename = $_FILES[$fileInputName]["name"];
+    $file_extension = strtolower(pathinfo($original_filename, PATHINFO_EXTENSION));
     $allowed_extensions = ['pdf', 'doc', 'docx'];
     
     if (!in_array($file_extension, $allowed_extensions)) {
         die("Error: Only PDF, DOC, and DOCX files are allowed.");
     }
     
-    // Check file size (e.g., 10MB limit)
+    // Check file size (10MB limit)
     if ($_FILES[$fileInputName]["size"] > 10000000) {
         die("Error: File is too large (Maximum 10MB).");
     }
 
-    $unique_filename = uniqid("resume_user{$user_id}_", true) . '.' . $file_extension;
-    $target_file = $target_dir . $unique_filename;
+    // Read file content and encode as base64 for database storage
+    // (Vercel has a read-only filesystem, so we can't use move_uploaded_file)
+    $file_content = file_get_contents($_FILES[$fileInputName]["tmp_name"]);
+    $resume_base64 = base64_encode($file_content);
+    $resume_filename = $original_filename;
 
-    // Attempt to move file
-    if (move_uploaded_file($_FILES[$fileInputName]["tmp_name"], $target_file)) {
-        
-        // --- Database Insertion ---
-        // Note: Omit the `id` column from the INSERT since it is AUTO_INCREMENT.
-        // `driverlicense_path` is repurposed to store the primary document uploaded.
-        
-        $sql = "INSERT INTO applications (job_id, user_id, firstname, lastname, gender, email, driverlicense_path, ssn, phoneno, houseaddress, bankname, bankno) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
-        $stmt = $con->prepare($sql);
-        if (!$stmt) {
-            die("Database Error: " . $con->error);
-        }
-        
-        // Bind parameters (2 integers + 10 strings)
-        $stmt->bind_param("iissssssssss", $job_id, $user_id, $firstname, $lastname, $gender, $email, $target_file, $ssn, $phoneno, $houseaddress, $bankname, $bankno);
+    // Determine MIME type for download
+    $mime_types = [
+        'pdf' => 'application/pdf',
+        'doc' => 'application/msword',
+        'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    ];
+    $resume_mime = $mime_types[$file_extension] ?? 'application/octet-stream';
 
-        if ($stmt->execute()) {
-            // Redirect to a success page or back to jobs with a success flag
-            header("Location: ../jobs.php?status=applied");
-            exit();
-        } else {
-            echo "Error saving application to database: " . $stmt->error;
-        }
-        
+    // --- Database Insertion ---
+    $sql = "INSERT INTO applications (job_id, user_id, firstname, lastname, gender, email, driverlicense_path, resume_data, resume_filename, ssn, phoneno, houseaddress, bankname, bankno) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $con->prepare($sql);
+    if (!$stmt) {
+        die("Database Error: " . $con->error);
+    }
+    
+    // driverlicense_path stores the original filename for backwards compat
+    $stmt->bind_param("iissssssssssss", $job_id, $user_id, $firstname, $lastname, $gender, $email, $resume_filename, $resume_base64, $resume_filename, $ssn, $phoneno, $houseaddress, $bankname, $bankno);
+
+    if ($stmt->execute()) {
+        header("Location: ../jobs.php?status=applied");
+        exit();
     } else {
-        echo "Sorry, there was an unknown error uploading your file. Check directory permissions.";
+        echo "Error saving application to database: " . $stmt->error;
     }
 }
 ?>

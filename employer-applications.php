@@ -127,14 +127,8 @@ $applications = $stmt->get_result();
                       </div>
                     </td>
                     <td class="py-5 px-6 text-right">
-                      <?php 
-                        // The primary uploaded file is stored in driverlicense_path due to the schema 
-                        $resumePath = $app['driverlicense_path'];
-                        // Fix relative path for the dashboard
-                        $resumeUrl = str_replace('../', '', $resumePath);
-                      ?>
                       <a 
-                        href="<?php echo htmlspecialchars($resumeUrl); ?>" 
+                        href="php/download.php?id=<?php echo $app['id']; ?>" 
                         target="_blank"
                         class="inline-flex items-center justify-center bg-brand-500/10 hover:bg-brand-500 text-brand-400 hover:text-white border border-brand-500/20 hover:border-brand-500 px-4 py-2 rounded-lg font-bold text-sm transition-all shadow-sm"
                       >
