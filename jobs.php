@@ -54,7 +54,7 @@ if (!empty($filter)) {
 <html lang="en">
   <head>
     <?php include("includes/head.php"); ?>
-    <title>Skillsoft</title>
+    <title>Skillsoft | Browse Jobs</title>
 
   </head>
   <body>
@@ -72,8 +72,8 @@ if (!empty($filter)) {
 
       <div class="container mx-auto px-4 relative z-20">
         <div class="text-center mb-10">
-          <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Command <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">Center</span></h1>
-          <p class="text-lg text-slate-400 max-w-2xl mx-auto">Find the perfect tech role tailored to your skills and aspirations.</p>
+          <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Job <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">Board</span></h1>
+          <p class="text-lg text-slate-400 max-w-2xl mx-auto">Find the perfect role tailored to your skills and aspirations.</p>
         </div>
 
         <div class="max-w-3xl mx-auto backdrop-blur-xl bg-white/5 p-3 rounded-2xl border border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.5)] transform hover:scale-[1.01] transition-transform duration-300 relative group">
@@ -85,7 +85,7 @@ if (!empty($filter)) {
               type="text"
               name="filter"
               class="w-full py-4 pl-14 pr-36 bg-slate-900/50 border border-slate-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 text-white text-lg placeholder:text-slate-500 font-medium transition-all"
-              placeholder="Search by role, location, or tech stack..."
+              placeholder="Search by role, location, or company..."
               value="<?php echo htmlspecialchars($filter); ?>"
             />
             <button type="submit" class="absolute right-2 top-2 bottom-2 bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white px-8 rounded-lg font-bold transition-all shadow-lg hover:shadow-brand-500/25">
@@ -159,7 +159,7 @@ if (!empty($filter)) {
                         <i class="fa-solid fa-magnifying-glass text-2xl text-slate-500"></i>
                       </div>
                       <h3 class="text-xl font-bold text-white mb-2">No roles found</h3>
-                      <p class="text-slate-400 font-medium">Try adjusting your search criteria or tech stack filters.</p>
+                      <p class="text-slate-400 font-medium">Try adjusting your search criteria or keywords.</p>
                       <a href="jobs.php" class="inline-block mt-6 px-6 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white font-medium transition-colors border border-white/10">Clear Filters</a>
                     </div>';
           }
