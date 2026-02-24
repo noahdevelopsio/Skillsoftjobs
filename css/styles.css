@@ -66,6 +66,8 @@ body {
   /* 1 */
   line-height: inherit;
   /* 2 */
+  background-color: #0f172a;
+  /* Dark slate-900 background to match theme */
 }
 
 /*
