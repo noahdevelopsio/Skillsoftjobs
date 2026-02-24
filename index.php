@@ -18,7 +18,7 @@ $result = mysqli_query($con, $query);
 <html lang="en">
   <head>
     <?php include("includes/head.php"); ?>
-    <title>Skillsoft | Begin a Career in Tech</title>
+    <title>Skillsoft | Find Your Dream Job</title>
   </head>
   <body>
     <?php include("includes/navbar.php"); ?>
@@ -47,11 +47,11 @@ $result = mysqli_query($con, $query);
           
           <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-8 leading-tight">
             Accelerate your <br class="hidden md:block" />
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-violet-400 to-brand-400 animate-gradient-x">tech career</span>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-violet-400 to-brand-400 animate-gradient-x">dream career</span>
           </h1>
           
           <p class="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Discover elite opportunities. Join the world's most innovative companies building the future of software, design, and engineering.
+            Discover elite opportunities. Connect with top companies hiring across every industry and skill level.
           </p>
           
           <div class="flex flex-col sm:flex-row justify-center items-center gap-4">

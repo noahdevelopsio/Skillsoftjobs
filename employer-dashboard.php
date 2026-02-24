@@ -139,7 +139,7 @@ $jobs_result = $stmt->get_result();
             <i class="fa-solid fa-briefcase text-2xl text-slate-500"></i>
           </div>
           <h3 class="text-xl font-bold text-white mb-2">No jobs posted yet</h3>
-          <p class="text-slate-400 font-medium max-w-md mx-auto mb-6">Create your first role listing to start receiving applications from elite tech talent.</p>
+          <p class="text-slate-400 font-medium max-w-md mx-auto mb-6">Create your first role listing to start receiving applications from qualified candidates.</p>
           <a href="add-job.php" class="inline-block px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold transition-all shadow-[0_0_20px_rgba(124,58,237,0.3)]">Post a Role</a>
         </div>
       <?php endif; ?>

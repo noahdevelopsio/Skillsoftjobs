@@ -51,7 +51,7 @@ if (isset($_POST['submit'])) {
 <html lang="en">
   <head>
     <?php include("includes/head.php"); ?>
-    <title>Skillsoft | Begin a Career in Tech</title>
+    <title>Skillsoft | Sign In</title>
   </head>
   <body>
     <section class="min-h-screen relative flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 overflow-hidden bg-slate-900">

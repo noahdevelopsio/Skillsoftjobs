@@ -17,7 +17,7 @@ if ($job_id === 0) {
 <html lang="en">
   <head>
     <?php include("includes/head.php"); ?>
-    <title>Skillsoft | Begin a Career in Tech</title>
+    <title>Skillsoft | Apply Now</title>
   </head>
   <body>
     <!-- Premium Application Form -->
@@ -32,6 +32,13 @@ if ($job_id === 0) {
         <div class="backdrop-blur-xl bg-white/5 border border-white/10 p-8 md:p-12 rounded-3xl shadow-2xl relative overflow-hidden">
           
           <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50 pointer-events-none"></div>
+
+          <a href="javascript:history.back()" class="inline-flex items-center text-slate-400 font-semibold hover:text-white transition-colors mb-6 group relative z-10">
+            <div class="w-8 h-8 rounded-full border border-slate-700 group-hover:bg-white/10 flex items-center justify-center mr-3 transition-colors">
+              <i class="fas fa-arrow-left text-sm group-hover:-translate-x-0.5 transition-transform"></i>
+            </div>
+            Back to Job Details
+          </a>
 
           <div class="text-center mb-10 relative z-10">
             <h2 class="text-4xl font-extrabold text-white tracking-tight mb-2">Submit Application</h2>
