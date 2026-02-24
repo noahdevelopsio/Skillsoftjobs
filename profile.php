@@ -46,11 +46,9 @@ $user = mysqli_fetch_assoc($result);
             <a href="edit-profile.php" class="px-6 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold backdrop-blur-md border border-white/10 transition-all shadow-sm flex items-center">
               <i class="fa-solid fa-pen-to-square mr-2"></i> Edit Profile
             </a>
-            <form method="POST" action="logout.php" class="inline-block">
-              <button type="submit" class="px-6 py-2.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 font-semibold border border-red-500/20 transition-all shadow-sm flex items-center">
-                <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Logout
-              </button>
-            </form>
+            <a href="php/logout.php" class="px-6 py-2.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 font-semibold border border-red-500/20 transition-all shadow-sm flex items-center">
+              <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Logout
+            </a>
           </div>
         </div>
 
