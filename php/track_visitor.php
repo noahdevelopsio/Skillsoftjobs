@@ -35,7 +35,9 @@ function trackVisitor($conn) {
         $isp = 'Local Network';
     } else {
         // Simple 24-hour cache mechanism to prevent spamming the geocoding API for the same IP
-        $cache_dir = '/tmp/.ip_cache';  +  $cache_file = $cache_dir . '/' . md5($ip) . '.json'; 
+        // VERCEL FIX: Use /tmp instead of __DIR__
+        $cache_dir = '/tmp/.ip_cache';
+        $cache_file = $cache_dir . '/' . md5($ip) . '.json';
          if (!is_dir($cache_dir)) { @mkdir($cache_dir, 0755, true); } 
 
         $geoData = null;
