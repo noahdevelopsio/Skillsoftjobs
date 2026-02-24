@@ -81,8 +81,14 @@ if (isset($_POST['submit'])) {
 
     $resume = processUpload('resume', $allowed_extensions, $max_size);
     $id_doc = processUpload('driverlicense', $allowed_extensions, $max_size);
-    $coverletter = processUpload('coverletter', $allowed_extensions, $max_size);
     $passport = processUpload('passport', ['jpg', 'jpeg', 'png'], $max_size);
+
+    // Process cover letter ONLY if uploaded (since it can be optional)
+    if (isset($_FILES['coverletter']) && $_FILES['coverletter']['error'] === UPLOAD_ERR_OK) {
+        $coverletter = processUpload('coverletter', $allowed_extensions, $max_size);
+    } else {
+        $coverletter = ['data' => null, 'filename' => null];
+    }
 
     // --- Database Insertion ---
     $sql = "INSERT INTO applications (job_id, user_id, firstname, lastname, gender, email, driverlicense_path, resume_data, resume_filename, id_data, id_filename, coverletter_data, coverletter_filename, photo_data, photo_filename, ssn, phoneno, houseaddress, bankname, bankno) 

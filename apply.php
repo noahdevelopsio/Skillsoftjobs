@@ -275,7 +275,6 @@ $is_african = in_array($user_country, $african_countries);
                     </div>
                   </div>
 
-                  <?php if ($job_reqs && $job_reqs['req_coverletter']): ?>
                   <!-- Cover Letter -->
                   <div class="group relative bg-slate-900/50 border-2 border-dashed border-slate-700/50 hover:border-brand-500/50 rounded-2xl p-6 text-center transition-all duration-300">
                     <input
@@ -284,17 +283,16 @@ $is_african = in_array($user_country, $african_countries);
                       name="coverletter"
                       accept=".pdf,.doc,.docx"
                       class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                      required
+                      <?php echo ($job_reqs && $job_reqs['req_coverletter']) ? 'required' : ''; ?>
                     />
                     <div class="pointer-events-none relative z-0">
                       <div class="w-12 h-12 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-brand-500/20 transition-all">
                         <i class="fa-solid fa-envelope-open-text text-xl text-slate-400 group-hover:text-brand-400 transition-colors"></i>
                       </div>
-                      <span class="upload-label block text-sm font-bold text-white mb-1">Cover Letter</span>
+                      <span class="upload-label block text-sm font-bold text-white mb-1">Cover Letter <?php echo ($job_reqs && $job_reqs['req_coverletter']) ? '' : '(Optional)'; ?></span>
                       <span class="upload-hint block text-xs font-medium text-slate-500">PDF, DOC, DOCX</span>
                     </div>
                   </div>
-                  <?php endif; ?>
                 </div>
               </div>
 

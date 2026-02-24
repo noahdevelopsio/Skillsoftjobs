@@ -260,7 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                   <label class="flex items-center space-x-3 cursor-pointer group">
                     <div class="relative flex items-center justify-center">
-                      <input type="checkbox" name="req_coverletter" value="1" class="peer sr-only" checked>
+                      <input type="checkbox" name="req_coverletter" value="1" class="peer sr-only">
                       <div class="w-5 h-5 border-2 border-slate-600 rounded peer-checked:bg-brand-500 peer-checked:border-brand-500 transition-all"></div>
                       <i class="fa-solid fa-check absolute text-white text-xs opacity-0 peer-checked:opacity-100 drop-shadow-sm pointer-events-none"></i>
                     </div>
