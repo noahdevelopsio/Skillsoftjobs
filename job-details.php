@@ -3,12 +3,6 @@ include("php/session_helper.php");
 init_session();
 include("php/config.php");
 
-// Redirect to login if the user is not authenticated
-if (!isset($_SESSION['valid'])) {
-    header("Location: login.php");
-    exit();
-}
-
 // Get the job ID from the URL
 $job_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 

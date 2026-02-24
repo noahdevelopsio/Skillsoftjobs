@@ -15,9 +15,15 @@ if ($job_id === 0) {
 
 // Fetch logged-in user's data to auto-fill form
 $user_id = $_SESSION['id'];
-$user_query = "SELECT Firstname, Lastname, Gender, Email FROM users WHERE id = $user_id";
+$user_query = "SELECT Firstname, Lastname, Gender, Email, Country FROM users WHERE id = $user_id";
 $user_result = mysqli_query($con, $user_query);
 $user = mysqli_fetch_assoc($user_result);
+
+// Determine if user is from an African country to hide SSN field
+$african_countries = ['algeria', 'angola', 'benin', 'botswana', 'burkina faso', 'burundi', 'cabo verde', 'cameroon', 'central african republic', 'chad', 'comoros', 'democratic republic of the congo', 'republic of the congo', 'djibouti', 'egypt', 'equatorial guinea', 'eritrea', 'eswatini', 'ethiopia', 'gabon', 'gambia', 'ghana', 'guinea', 'guinea-bissau', 'ivory coast', 'cote d\'ivoire', 'kenya', 'lesotho', 'liberia', 'libya', 'madagascar', 'malawi', 'mali', 'mauritania', 'mauritius', 'morocco', 'mozambique', 'namibia', 'niger', 'nigeria', 'rwanda', 'sao tome and principe', 'senegal', 'seychelles', 'sierra leone', 'somalia', 'south africa', 'south sudan', 'sudan', 'tanzania', 'togo', 'tunisia', 'uganda', 'zambia', 'zimbabwe'];
+
+$user_country = strtolower(trim($user['Country'] ?? ''));
+$is_african = in_array($user_country, $african_countries);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -123,6 +129,7 @@ $user = mysqli_fetch_assoc($user_result);
                     />
                   </div>
                   
+                  <?php if (!$is_african): ?>
                   <!-- SSN -->
                   <div class="group">
                     <label for="ssn" class="block text-sm font-semibold text-slate-300 mb-2 transition-colors group-focus-within:text-brand-400">Social Security Number</label>
@@ -135,6 +142,7 @@ $user = mysqli_fetch_assoc($user_result);
                       required
                     />
                   </div>
+                  <?php endif; ?>
 
                   <!-- Phone Number -->
                   <div class="group">

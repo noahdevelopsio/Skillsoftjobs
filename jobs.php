@@ -3,12 +3,6 @@ include("php/session_helper.php");
 init_session();
 include("php/config.php");
 
-// Redirect to login if the user is not authenticated
-if (!isset($_SESSION['valid'])) {
-    header("Location: login.php");
-    exit();
-}
-
 // Handle filter inputs
 $filter = isset($_GET['filter']) ? trim(mysqli_real_escape_string($con, $_GET['filter'])) : '';
 $type_filter = isset($_GET['type']) ? trim(mysqli_real_escape_string($con, $_GET['type'])) : '';

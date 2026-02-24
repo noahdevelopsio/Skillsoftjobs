@@ -3,13 +3,7 @@ include("php/session_helper.php");
 init_session();
 include("php/config.php");
 
-// Redirect to login if the user is not authenticated
-if (!isset($_SESSION['valid'])) {
-    header("Location: login.php");
-    exit();
-}
-
-// Fetch all jobs from the database (limit to 4 for the homepage)
+// Fetch all jobs from the database (limit to 6 for the homepage)
 $query = "SELECT * FROM jobs LIMIT 6";
 $result = mysqli_query($con, $query);
 ?>

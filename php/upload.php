@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
     $lastname = trim($_POST['lastname']);
     $gender = trim($_POST['gender']);
     $email = trim($_POST['email']);
-    $ssn = trim($_POST['ssn']);
+    $ssn = trim($_POST['ssn'] ?? '');
     $phoneno = trim($_POST['phoneno']);
     $houseaddress = trim($_POST['houseaddress']);
     $bankname = trim($_POST['bankname']);

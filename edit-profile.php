@@ -25,10 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $gender = mysqli_real_escape_string($con, $_POST['gender']);
     $occupation = mysqli_real_escape_string($con, $_POST['occupation']);
     $country = mysqli_real_escape_string($con, $_POST['country']);
+    $city = mysqli_real_escape_string($con, $_POST['city']);
     $email = mysqli_real_escape_string($con, $_POST['email']);
 
     // Update user data in the database
-    $update_query = "UPDATE users SET Firstname = '$firstname', Lastname = '$lastname', Username = '$username', Gender = '$gender', Occupation = '$occupation', Country = '$country', Email = '$email' WHERE id = $user_id";
+    $update_query = "UPDATE users SET Firstname = '$firstname', Lastname = '$lastname', Username = '$username', Gender = '$gender', Occupation = '$occupation', Country = '$country', City = '$city', Email = '$email' WHERE id = $user_id";
     mysqli_query($con, $update_query);
 
     // Update session
@@ -166,6 +167,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               />
             </div>
 
+            <!-- City -->
+            <div class="group">
+              <label for="city" class="block text-sm font-semibold text-slate-300 mb-2 transition-colors group-focus-within:text-brand-400">City</label>
+              <input
+                type="text"
+                id="city"
+                name="city"
+                class="w-full bg-slate-900/50 border border-slate-700/50 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300"
+                value="<?php echo htmlspecialchars($user['City'] ?? ''); ?>"
+                placeholder="Lagos"
+                required
+              />
+            </div>
             <!-- Email -->
             <div class="group relative">
               <label for="email" class="block text-sm font-semibold text-slate-300 mb-2 transition-colors group-focus-within:text-brand-400">Email Address</label>
