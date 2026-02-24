@@ -145,7 +145,7 @@ $job = mysqli_fetch_assoc($result);
               
               <div class="mt-10 relative z-10">
                   <a 
-                    href="apply.php?id=<?php echo $job['id']; ?>" 
+                    href="apply.php?job_id=<?php echo $job['id']; ?>" 
                     class="block text-center bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-bold py-5 px-6 rounded-2xl transition-all shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] transform hover:-translate-y-1 w-full text-lg tracking-wide"
                   >
                     Submit Application

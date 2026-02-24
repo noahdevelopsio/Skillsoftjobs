@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <body>
     <?php include("includes/navbar.php"); ?>
 
-    <section class="min-h-[calc(100vh-80px)] relative flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 overflow-hidden bg-slate-900">
+    <section class="min-h-screen relative flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 overflow-hidden bg-slate-900">
       <!-- Animated Mesh/Glow Background -->
       <div class="absolute inset-0 w-full h-full bg-slate-900 z-0"></div>
       <div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-violet-600/20 blur-[120px] mix-blend-screen animate-pulse z-0"></div>

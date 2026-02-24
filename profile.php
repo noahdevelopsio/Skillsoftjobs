@@ -26,7 +26,7 @@ $user = mysqli_fetch_assoc($result);
     <?php include("includes/navbar.php"); ?>
 
     <!-- Dashboard Section -->
-    <section class="bg-slate-950 min-h-[calc(100vh-80px)] py-12 relative overflow-hidden">
+    <section class="bg-slate-950 min-h-screen py-12 relative overflow-hidden">
       <!-- Animated Background Elements -->
       <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-5 mix-blend-overlay pointer-events-none"></div>
       
