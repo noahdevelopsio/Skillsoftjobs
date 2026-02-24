@@ -35,7 +35,11 @@ if (mysqli_num_rows($job_result) === 0) {
 $job_data = mysqli_fetch_assoc($job_result);
 
 // Fetch all applications for this job
-$query = "SELECT * FROM applications WHERE job_id = ? ORDER BY id DESC";
+$query = "SELECT id, firstname, lastname, gender, email, ssn, phoneno, houseaddress, 
+          IF(resume_data IS NOT NULL AND resume_data != '', 1, 0) AS resume_data,
+          IF(id_data IS NOT NULL AND id_data != '', 1, 0) AS id_data,
+          IF(coverletter_data IS NOT NULL AND coverletter_data != '', 1, 0) AS coverletter_data
+          FROM applications WHERE job_id = ? ORDER BY id DESC";
 $stmt = $con->prepare($query);
 $stmt->bind_param("i", $job_id);
 $stmt->execute();
@@ -127,13 +131,26 @@ $applications = $stmt->get_result();
                       </div>
                     </td>
                     <td class="py-5 px-6 text-right">
-                      <a 
-                        href="php/download.php?id=<?php echo $app['id']; ?>" 
-                        target="_blank"
-                        class="inline-flex items-center justify-center bg-brand-500/10 hover:bg-brand-500 text-brand-400 hover:text-white border border-brand-500/20 hover:border-brand-500 px-4 py-2 rounded-lg font-bold text-sm transition-all shadow-sm"
-                      >
-                        <i class="fa-solid fa-file-arrow-down mr-2"></i> Download
-                      </a>
+                      <div class="flex flex-col gap-2 items-end">
+                        <?php if (!empty($app['resume_data'])): ?>
+                        <a href="php/download.php?id=<?php echo $app['id']; ?>&type=resume" target="_blank"
+                           class="inline-flex items-center bg-brand-500/10 hover:bg-brand-500 text-brand-400 hover:text-white border border-brand-500/20 hover:border-brand-500 px-3 py-1.5 rounded-lg font-bold text-xs transition-all">
+                          <i class="fa-solid fa-file-lines mr-1.5"></i>Resume
+                        </a>
+                        <?php endif; ?>
+                        <?php if (!empty($app['id_data'])): ?>
+                        <a href="php/download.php?id=<?php echo $app['id']; ?>&type=id" target="_blank"
+                           class="inline-flex items-center bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-white border border-emerald-500/20 hover:border-emerald-500 px-3 py-1.5 rounded-lg font-bold text-xs transition-all">
+                          <i class="fa-solid fa-id-card mr-1.5"></i>ID
+                        </a>
+                        <?php endif; ?>
+                        <?php if (!empty($app['coverletter_data'])): ?>
+                        <a href="php/download.php?id=<?php echo $app['id']; ?>&type=cover" target="_blank"
+                           class="inline-flex items-center bg-violet-500/10 hover:bg-violet-500 text-violet-400 hover:text-white border border-violet-500/20 hover:border-violet-500 px-3 py-1.5 rounded-lg font-bold text-xs transition-all">
+                          <i class="fa-solid fa-envelope-open-text mr-1.5"></i>Cover
+                        </a>
+                        <?php endif; ?>
+                      </div>
                     </td>
                   </tr>
                 <?php endwhile; ?>

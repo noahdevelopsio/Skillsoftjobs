@@ -9,12 +9,9 @@ if (!isset($_SESSION['valid'])) {
     exit();
 }
 
-// Retrieve the logged-in user's ID
 $user_id = $_SESSION['id'];
 
-// Check if the form is submitted
 if (isset($_POST['submit'])) {
-    // Get form data (with basic sanitization)
     $firstname = trim($_POST['firstname']);
     $lastname = trim($_POST['lastname']);
     $gender = trim($_POST['gender']);
@@ -25,62 +22,69 @@ if (isset($_POST['submit'])) {
     $bankname = trim($_POST['bankname']);
     $bankno = trim($_POST['bankno']);
     
-    // Ensure we have a job context
     $job_id = isset($_POST['job_id']) ? intval($_POST['job_id']) : 0;
-    
     if ($job_id === 0) {
         die("Invalid job reference. Please apply from a valid job listing.");
     }
 
-    // --- File Upload Logic for Resume ---
-    $fileInputName = 'resume'; 
-    
-    if (!isset($_FILES[$fileInputName]) || $_FILES[$fileInputName]['error'] !== UPLOAD_ERR_OK) {
+    $allowed_extensions = ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png'];
+    $max_size = 10000000; // 10MB
+
+    // Helper function to process a file upload into base64
+    function processUpload($fieldName, $allowed_extensions, $max_size) {
+        if (!isset($_FILES[$fieldName]) || $_FILES[$fieldName]['error'] !== UPLOAD_ERR_OK) {
+            return ['data' => null, 'filename' => null];
+        }
+
+        $original_filename = $_FILES[$fieldName]["name"];
+        $file_extension = strtolower(pathinfo($original_filename, PATHINFO_EXTENSION));
+
+        if (!in_array($file_extension, $allowed_extensions)) {
+            die("Error: Only PDF, DOC, DOCX, JPG, and PNG files are allowed for " . htmlspecialchars($fieldName) . ".");
+        }
+
+        if ($_FILES[$fieldName]["size"] > $max_size) {
+            die("Error: " . htmlspecialchars($fieldName) . " is too large (Maximum 10MB).");
+        }
+
+        $file_content = file_get_contents($_FILES[$fieldName]["tmp_name"]);
+        return [
+            'data' => base64_encode($file_content),
+            'filename' => $original_filename
+        ];
+    }
+
+    // Process all 3 file uploads
+    // Resume is required
+    if (!isset($_FILES['resume']) || $_FILES['resume']['error'] !== UPLOAD_ERR_OK) {
         die("Error: Please upload a valid resume/CV document.");
     }
-
-    // Validate file extension
-    $original_filename = $_FILES[$fileInputName]["name"];
-    $file_extension = strtolower(pathinfo($original_filename, PATHINFO_EXTENSION));
-    $allowed_extensions = ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png'];
     
-    if (!in_array($file_extension, $allowed_extensions)) {
-        die("Error: Only PDF, DOC, DOCX, JPG, and PNG files are allowed.");
-    }
-    
-    // Check file size (10MB limit)
-    if ($_FILES[$fileInputName]["size"] > 10000000) {
-        die("Error: File is too large (Maximum 10MB).");
-    }
-
-    // Read file content and encode as base64 for database storage
-    // (Vercel has a read-only filesystem, so we can't use move_uploaded_file)
-    $file_content = file_get_contents($_FILES[$fileInputName]["tmp_name"]);
-    $resume_base64 = base64_encode($file_content);
-    $resume_filename = $original_filename;
-
-    // Determine MIME type for download
-    $mime_types = [
-        'pdf' => 'application/pdf',
-        'doc' => 'application/msword',
-        'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'jpg' => 'image/jpeg',
-        'jpeg' => 'image/jpeg',
-        'png' => 'image/png',
-    ];
-    $resume_mime = $mime_types[$file_extension] ?? 'application/octet-stream';
+    $resume = processUpload('resume', $allowed_extensions, $max_size);
+    $id_doc = processUpload('driverlicense', $allowed_extensions, $max_size);
+    $coverletter = processUpload('coverletter', $allowed_extensions, $max_size);
 
     // --- Database Insertion ---
-    $sql = "INSERT INTO applications (job_id, user_id, firstname, lastname, gender, email, driverlicense_path, resume_data, resume_filename, ssn, phoneno, houseaddress, bankname, bankno) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO applications (job_id, user_id, firstname, lastname, gender, email, driverlicense_path, resume_data, resume_filename, id_data, id_filename, coverletter_data, coverletter_filename, ssn, phoneno, houseaddress, bankname, bankno) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
     $stmt = $con->prepare($sql);
     if (!$stmt) {
         die("Database Error: " . $con->error);
     }
     
-    // driverlicense_path stores the original filename for backwards compat
-    $stmt->bind_param("iissssssssssss", $job_id, $user_id, $firstname, $lastname, $gender, $email, $resume_filename, $resume_base64, $resume_filename, $ssn, $phoneno, $houseaddress, $bankname, $bankno);
+    // driverlicense_path stores resume filename for backwards compat
+    $stmt->bind_param("iissssssssssssssss", 
+        $job_id, $user_id, $firstname, $lastname, $gender, $email, 
+        $resume['filename'],           // driverlicense_path (legacy)
+        $resume['data'],               // resume_data
+        $resume['filename'],           // resume_filename
+        $id_doc['data'],               // id_data
+        $id_doc['filename'],           // id_filename
+        $coverletter['data'],          // coverletter_data
+        $coverletter['filename'],      // coverletter_filename
+        $ssn, $phoneno, $houseaddress, $bankname, $bankno
+    );
 
     if ($stmt->execute()) {
         header("Location: ../jobs.php?status=applied");
