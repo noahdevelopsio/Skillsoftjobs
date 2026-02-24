@@ -38,7 +38,8 @@ $job_data = mysqli_fetch_assoc($job_result);
 $query = "SELECT id, firstname, lastname, gender, email, ssn, phoneno, houseaddress, 
           IF(resume_data IS NOT NULL AND resume_data != '', 1, 0) AS resume_data,
           IF(id_data IS NOT NULL AND id_data != '', 1, 0) AS id_data,
-          IF(coverletter_data IS NOT NULL AND coverletter_data != '', 1, 0) AS coverletter_data
+          IF(coverletter_data IS NOT NULL AND coverletter_data != '', 1, 0) AS coverletter_data,
+          IF(photo_data IS NOT NULL AND photo_data != '', 1, 0) AS photo_data
           FROM applications WHERE job_id = ? ORDER BY id DESC";
 $stmt = $con->prepare($query);
 $stmt->bind_param("i", $job_id);
@@ -148,6 +149,12 @@ $applications = $stmt->get_result();
                         <a href="php/download.php?id=<?php echo $app['id']; ?>&type=cover" target="_blank"
                            class="inline-flex items-center bg-violet-500/10 hover:bg-violet-500 text-violet-400 hover:text-white border border-violet-500/20 hover:border-violet-500 px-3 py-1.5 rounded-lg font-bold text-xs transition-all">
                           <i class="fa-solid fa-envelope-open-text mr-1.5"></i>Cover
+                        </a>
+                        <?php endif; ?>
+                        <?php if (!empty($app['photo_data'])): ?>
+                        <a href="php/download.php?id=<?php echo $app['id']; ?>&type=photo" target="_blank"
+                           class="inline-flex items-center bg-amber-500/10 hover:bg-amber-500 text-amber-400 hover:text-white border border-amber-500/20 hover:border-amber-500 px-3 py-1.5 rounded-lg font-bold text-xs transition-all">
+                          <i class="fa-solid fa-camera mr-1.5"></i>Photo
                         </a>
                         <?php endif; ?>
                       </div>

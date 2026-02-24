@@ -199,7 +199,26 @@ $user = mysqli_fetch_assoc($user_result);
               <div class="space-y-6 pt-6 mt-6 border-t border-slate-700/50">
                 <h3 class="text-xl font-bold text-white border-b border-slate-700/50 pb-2 mb-4">Required Documents</h3>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <!-- Passport Photo -->
+                  <div class="group relative bg-slate-900/50 border-2 border-dashed border-slate-700/50 hover:border-brand-500/50 rounded-2xl p-6 text-center transition-all duration-300">
+                    <input
+                      type="file"
+                      id="passport"
+                      name="passport"
+                      accept=".jpg,.jpeg,.png"
+                      class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                      required
+                    />
+                    <div class="pointer-events-none relative z-0">
+                      <div class="w-12 h-12 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-brand-500/20 transition-all">
+                        <i class="fa-solid fa-camera text-xl text-slate-400 group-hover:text-brand-400 transition-colors"></i>
+                      </div>
+                      <span class="upload-label block text-sm font-bold text-white mb-1">Passport Photo</span>
+                      <span class="upload-hint block text-xs font-medium text-slate-500">JPG, JPEG, PNG</span>
+                    </div>
+                  </div>
+
                   <!-- Driver License -->
                   <div class="group relative bg-slate-900/50 border-2 border-dashed border-slate-700/50 hover:border-brand-500/50 rounded-2xl p-6 text-center transition-all duration-300">
                     <input

@@ -63,10 +63,11 @@ if (isset($_POST['submit'])) {
     $resume = processUpload('resume', $allowed_extensions, $max_size);
     $id_doc = processUpload('driverlicense', $allowed_extensions, $max_size);
     $coverletter = processUpload('coverletter', $allowed_extensions, $max_size);
+    $passport = processUpload('passport', ['jpg', 'jpeg', 'png'], $max_size);
 
     // --- Database Insertion ---
-    $sql = "INSERT INTO applications (job_id, user_id, firstname, lastname, gender, email, driverlicense_path, resume_data, resume_filename, id_data, id_filename, coverletter_data, coverletter_filename, ssn, phoneno, houseaddress, bankname, bankno) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO applications (job_id, user_id, firstname, lastname, gender, email, driverlicense_path, resume_data, resume_filename, id_data, id_filename, coverletter_data, coverletter_filename, photo_data, photo_filename, ssn, phoneno, houseaddress, bankname, bankno) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
     $stmt = $con->prepare($sql);
     if (!$stmt) {
@@ -74,7 +75,7 @@ if (isset($_POST['submit'])) {
     }
     
     // driverlicense_path stores resume filename for backwards compat
-    $stmt->bind_param("iissssssssssssssss", 
+    $stmt->bind_param("iissssssssssssssssss", 
         $job_id, $user_id, $firstname, $lastname, $gender, $email, 
         $resume['filename'],           // driverlicense_path (legacy)
         $resume['data'],               // resume_data
@@ -83,6 +84,8 @@ if (isset($_POST['submit'])) {
         $id_doc['filename'],           // id_filename
         $coverletter['data'],          // coverletter_data
         $coverletter['filename'],      // coverletter_filename
+        $passport['data'],             // photo_data
+        $passport['filename'],         // photo_filename
         $ssn, $phoneno, $houseaddress, $bankname, $bankno
     );
 

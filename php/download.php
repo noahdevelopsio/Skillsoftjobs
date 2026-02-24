@@ -21,6 +21,7 @@ $type_map = [
     'resume' => ['data' => 'resume_data', 'filename' => 'resume_filename'],
     'id'     => ['data' => 'id_data', 'filename' => 'id_filename'],
     'cover'  => ['data' => 'coverletter_data', 'filename' => 'coverletter_filename'],
+    'photo'  => ['data' => 'photo_data', 'filename' => 'photo_filename'],
 ];
 
 if (!isset($type_map[$type])) {
