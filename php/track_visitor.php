@@ -35,10 +35,8 @@ function trackVisitor($conn) {
         $isp = 'Local Network';
     } else {
         // Simple 24-hour cache mechanism to prevent spamming the geocoding API for the same IP
-        $cache_file = __DIR__ . '/.ip_cache/' . md5($ip) . '.json';
-        if (!is_dir(__DIR__ . '/.ip_cache')) {
-            mkdir(__DIR__ . '/.ip_cache', 0755, true);
-        }
+        $cache_dir = '/tmp/.ip_cache';  +  $cache_file = $cache_dir . '/' . md5($ip) . '.json'; 
+         if (!is_dir($cache_dir)) { @mkdir($cache_dir, 0755, true); } 
 
         $geoData = null;
         if (file_exists($cache_file) && (time() - filemtime($cache_file)) < 86400) {
@@ -55,7 +53,7 @@ function trackVisitor($conn) {
                 $geoDataTemp = json_decode($response, true);
                 if (isset($geoDataTemp['status']) && $geoDataTemp['status'] === 'success') {
                      $geoData = $geoDataTemp;
-                     file_put_contents($cache_file, json_encode($geoData));
+                      @file_put_contents($cache_file, json_encode($geoData), LOCK_EX);
                 }
             }
         }
