@@ -197,6 +197,7 @@ if ($job_id === 0) {
                       type="file"
                       id="driverlicense"
                       name="driverlicense"
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                       class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       required
                     />
@@ -204,8 +205,8 @@ if ($job_id === 0) {
                       <div class="w-12 h-12 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-brand-500/20 transition-all">
                         <i class="fa-solid fa-id-card text-xl text-slate-400 group-hover:text-brand-400 transition-colors"></i>
                       </div>
-                      <span class="block text-sm font-bold text-white mb-1">ID / License</span>
-                      <span class="block text-xs font-medium text-slate-500">Click to upload</span>
+                      <span class="block text-sm font-bold text-white mb-1">National ID / License</span>
+                      <span class="block text-xs font-medium text-slate-500">PDF, DOC, JPG, PNG</span>
                     </div>
                   </div>
 
@@ -215,7 +216,7 @@ if ($job_id === 0) {
                       type="file"
                       id="resume"
                       name="resume"
-                      accept=".pdf,.doc,.docx"
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                       class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       required
                     />
@@ -224,7 +225,7 @@ if ($job_id === 0) {
                         <i class="fa-solid fa-file-pdf text-xl text-slate-400 group-hover:text-brand-400 transition-colors"></i>
                       </div>
                       <span class="block text-sm font-bold text-white mb-1">Resume / CV</span>
-                      <span class="block text-xs font-medium text-slate-500">PDF, DOC, DOCX</span>
+                      <span class="block text-xs font-medium text-slate-500">PDF, DOC, DOCX, JPG, PNG</span>
                     </div>
                   </div>
 

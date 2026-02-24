@@ -40,6 +40,9 @@ $mime_types = [
     'pdf' => 'application/pdf',
     'doc' => 'application/msword',
     'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'jpg' => 'image/jpeg',
+    'jpeg' => 'image/jpeg',
+    'png' => 'image/png',
 ];
 $content_type = $mime_types[$ext] ?? 'application/octet-stream';
 

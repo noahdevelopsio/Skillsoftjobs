@@ -42,10 +42,10 @@ if (isset($_POST['submit'])) {
     // Validate file extension
     $original_filename = $_FILES[$fileInputName]["name"];
     $file_extension = strtolower(pathinfo($original_filename, PATHINFO_EXTENSION));
-    $allowed_extensions = ['pdf', 'doc', 'docx'];
+    $allowed_extensions = ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png'];
     
     if (!in_array($file_extension, $allowed_extensions)) {
-        die("Error: Only PDF, DOC, and DOCX files are allowed.");
+        die("Error: Only PDF, DOC, DOCX, JPG, and PNG files are allowed.");
     }
     
     // Check file size (10MB limit)
@@ -64,6 +64,9 @@ if (isset($_POST['submit'])) {
         'pdf' => 'application/pdf',
         'doc' => 'application/msword',
         'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'jpg' => 'image/jpeg',
+        'jpeg' => 'image/jpeg',
+        'png' => 'image/png',
     ];
     $resume_mime = $mime_types[$file_extension] ?? 'application/octet-stream';
 
